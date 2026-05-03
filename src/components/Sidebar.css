@@ -1,0 +1,58 @@
+.sidebar {
+  position: fixed;
+  top: 70px; /* di bawah topbar */
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 70px);
+  background: #ffffff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  z-index: 999;
+}
+
+/* .logo {
+  font-weight: bold;
+  color: #4a7bbd;
+  font-size: 20px;
+  margin-bottom: 30px;
+} */
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* link jadi full area */
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  border-radius: 35px;
+  text-decoration: none;
+  color: black;
+}
+
+/* hover */
+.sidebar a:hover {
+  background: #e6ecf7;
+}
+
+/* ACTIVE pindah ke <a> */
+.sidebar a.active {
+  background: #4a7bbd;
+  color: white;
+}
+
+/* icon default */
+.icon {
+  width: 20px;
+  height: 20px;
+  color: black; /* ganti dari fill */
+}
+
+/* icon active */
+.sidebar a.active .icon {
+  color: white;
+}
+
