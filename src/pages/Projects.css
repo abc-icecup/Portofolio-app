@@ -7,11 +7,15 @@
   flex: 1;
   background-color: #f4f4f4;
   min-height: 100vh;
+
+  margin-left: 230px; /* sesuaikan lebar sidebar kamu */
+  padding-top: 45px;  /* tinggi topbar */
 }
 
 /* Container */
 .projects-container {
   padding: 30px 40px;
+  max-width: 1200px;
 }
 
 /* Header */
@@ -45,8 +49,9 @@
 /* Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, 310px);
+  gap: 20px;
+  justify-content: flex-start; /* rata kiri */
 }
 
 /* Card */
@@ -56,12 +61,15 @@
   overflow: hidden;
   background: white;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  
+  height: 314px; /* WAJIB biar ga gepeng */
 }
 
 .project-card img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;        /* ✅ KUNCI UTAMA */
+  object-position: center;  /* ✅ crop dari tengah */
 }
 
 /* Overlay */

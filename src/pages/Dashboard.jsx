@@ -1,5 +1,5 @@
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+import Sidebar from "../navigation/Sidebar";
+import Topbar from "../navigation/Topbar";
 import "./Dashboard.css";
 
 import ProjectsIcon from "../assets/projectsLogo.svg?react";
@@ -63,9 +63,16 @@ export default function Dashboard() {
 
           {/* PROJECT */}
           <h2>Projects</h2>
-          <div className="project">
+          <div className="projects-grid">
             {projects.map((img, i) => (
-              <img key={i} src={img} />
+              <div className="project-card" key={i}>
+                <img src={img} />
+
+                <div className="overlay">
+                  <h3>Project {i + 1}</h3>
+                  <button className="details-btn">Details &gt;</button>
+                </div>
+              </div>
             ))}
           </div>
 

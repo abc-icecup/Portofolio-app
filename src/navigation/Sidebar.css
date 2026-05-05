@@ -2,20 +2,14 @@
   position: fixed;
   top: 70px; /* di bawah topbar */
   left: 0;
-  width: 200px;
+  width: 240px;
   height: calc(100vh - 70px);
   background: #ffffff;
   border-right: 1px solid #ddd;
   padding: 20px;
   z-index: 999;
+  font-family: 'Inter', sans-serif;
 }
-
-/* .logo {
-  font-weight: bold;
-  color: #4a7bbd;
-  font-size: 20px;
-  margin-bottom: 30px;
-} */
 
 .sidebar ul {
   list-style: none;

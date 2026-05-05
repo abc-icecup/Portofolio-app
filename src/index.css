@@ -1,7 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   background: #f4f6f9;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+h3 {
+  font-family: "Inter", sans-serif;
 }
