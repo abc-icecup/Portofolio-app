@@ -1,3 +1,6 @@
+/* INI MERGE */
+@import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600&display=swap');
 
 * {
@@ -16,4 +19,12 @@ h1, h2 {
 
 h3 {
   font-family: "Inter", sans-serif;
+}
+
+/* INI JUGA MERGE */
+.material-icons {
+  font-family: 'Material Icons' !important;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
 }
