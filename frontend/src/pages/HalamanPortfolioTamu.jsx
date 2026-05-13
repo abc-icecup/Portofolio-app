@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import CertificatePortrait from "../components/CertificatePortrait";
+import CertificateLandscape from "../components/CertificateLandscape";
 
 import logo from "../assets/images/logo_my_porto.svg";
 import profile1 from "../assets/images/profile1.svg";
@@ -17,6 +21,8 @@ import canvaIcon from "../assets/images/ikon_canva.png";
 import linkIcon from "../assets/images/ikon_link.svg";
 
 function HalamanPortfolioTamu() {
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
   return (
     <div className="gt-page">
       {/* ===== NAVBAR ===== */}
@@ -93,6 +99,7 @@ function HalamanPortfolioTamu() {
             <div className="gt-project-list">
               <div className="gt-project-card">
                 <img src={project1} alt="Website E-commerce" />
+
                 <div className="gt-project-text">
                   <h4>Website E-commerce</h4>
 
@@ -104,10 +111,11 @@ function HalamanPortfolioTamu() {
 
               <div className="gt-project-card">
                 <img src={project2} alt="UI/UX Design Aplikasi" />
+
                 <div className="gt-project-text">
                   <h4>UI/UX Design Aplikasi</h4>
 
-                  <Link to="/project-halaman-tamu-2">
+                  <Link to="/project-halaman-tamu-1">
                     <button type="button">Detail</button>
                   </Link>
                 </div>
@@ -115,10 +123,11 @@ function HalamanPortfolioTamu() {
 
               <div className="gt-project-card">
                 <img src={project3} alt="Poster Promosi Event" />
+
                 <div className="gt-project-text">
                   <h4>Poster Promosi Event</h4>
 
-                  <Link to="/project-halaman-tamu-3">
+                  <Link to="/project-halaman-tamu-1">
                     <button type="button">Detail</button>
                   </Link>
                 </div>
@@ -131,8 +140,21 @@ function HalamanPortfolioTamu() {
             <h3>Certificates</h3>
 
             <div className="gt-certificate-list">
-              <img src={serti1} alt="Certificate 1" />
-              <img src={serti2} alt="Certificate 2" />
+              <button
+                type="button"
+                className="gt-certificate-card"
+                onClick={() => setSelectedCertificate("portrait")}
+              >
+                <img src={serti1} alt="Certificate 1" />
+              </button>
+
+              <button
+                type="button"
+                className="gt-certificate-card"
+                onClick={() => setSelectedCertificate("landscape")}
+              >
+                <img src={serti2} alt="Certificate 2" />
+              </button>
             </div>
           </section>
 
@@ -150,6 +172,20 @@ function HalamanPortfolioTamu() {
           </section>
         </section>
       </main>
+
+      {selectedCertificate === "portrait" && (
+        <CertificatePortrait
+          image={serti1}
+          onClose={() => setSelectedCertificate(null)}
+        />
+      )}
+
+      {selectedCertificate === "landscape" && (
+        <CertificateLandscape
+          image={serti2}
+          onClose={() => setSelectedCertificate(null)}
+        />
+      )}
     </div>
   );
 }

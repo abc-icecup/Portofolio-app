@@ -1,0 +1,84 @@
+/* ================= CERTIFICATE LANDSCAPE VIEW ================= */
+
+.cert-view-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cert-view-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.cert-view-image {
+  display: block;
+  object-fit: contain;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.cert-view-image-landscape {
+  width: auto;
+  height: auto;
+  max-width: 620px;
+  max-height: 70vh;
+}
+
+.cert-view-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  color: #ffffff;
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+  padding: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  transition: transform 0.2s ease;
+}
+
+.cert-view-close:hover {
+  transform: scale(1.08);
+}
+
+/* ================= CERTIFICATE BUTTON ================= */
+
+.pf-certificate-card,
+.gt-certificate-card {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  display: block;
+}
+
+.pf-certificate-card img,
+.gt-certificate-card img {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

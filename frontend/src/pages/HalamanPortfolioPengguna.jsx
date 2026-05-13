@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import CertificatePortrait from "../components/CertificatePortrait";
+import CertificateLandscape from "../components/CertificateLandscape";
 
 import logo from "../assets/images/logo_my_porto.svg";
 import menuIcon from "../assets/images/ikon_menu.svg";
@@ -19,6 +23,8 @@ import nodeIcon from "../assets/images/ikon_nodejs.png";
 import canvaIcon from "../assets/images/ikon_canva.png";
 
 function HalamanPortfolioPengguna() {
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
   return (
     <div className="pf-page">
       <header className="pf-navbar">
@@ -114,7 +120,7 @@ function HalamanPortfolioPengguna() {
                   <div className="pf-project-text">
                     <h4>UI/UX Design Aplikasi Mobile Travel Online</h4>
 
-                    <Link to="/project-halaman-pengguna-1">
+                    <Link to="/project-detail">
                       <button type="button">Detail</button>
                     </Link>
                   </div>
@@ -128,7 +134,7 @@ function HalamanPortfolioPengguna() {
                   <div className="pf-project-text">
                     <h4>Poster Promosi Event Seminar Arkeologi</h4>
 
-                    <Link to="/project-halaman-pengguna-2">
+                    <Link to="/project-detail">
                       <button type="button">Detail</button>
                     </Link>
                   </div>
@@ -141,13 +147,21 @@ function HalamanPortfolioPengguna() {
             <h3>Certificates</h3>
 
             <div className="pf-certificate-list">
-              <div className="pf-certificate-card">
+              <button
+                type="button"
+                className="pf-certificate-card"
+                onClick={() => setSelectedCertificate("portrait")}
+              >
                 <img src={serti1} alt="Certificate 1" />
-              </div>
+              </button>
 
-              <div className="pf-certificate-card">
+              <button
+                type="button"
+                className="pf-certificate-card"
+                onClick={() => setSelectedCertificate("landscape")}
+              >
                 <img src={serti2} alt="Certificate 2" />
-              </div>
+              </button>
             </div>
           </section>
 
@@ -164,6 +178,20 @@ function HalamanPortfolioPengguna() {
           </section>
         </section>
       </main>
+
+      {selectedCertificate === "portrait" && (
+        <CertificatePortrait
+          image={serti1}
+          onClose={() => setSelectedCertificate(null)}
+        />
+      )}
+
+      {selectedCertificate === "landscape" && (
+        <CertificateLandscape
+          image={serti2}
+          onClose={() => setSelectedCertificate(null)}
+        />
+      )}
     </div>
   );
 }

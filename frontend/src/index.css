@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600&display=swap');
+@import "./base/global.css";
+
+@import "./pages/landing-page.css";
+@import "./pages/signin-signup.css";
+@import "./pages/portfolio-pengguna.css";
+@import "./pages/project-pengguna.css";
+@import "./pages/portfolio-tamu.css";
+@import "./pages/project-tamu.css";
+
+@import "./fixes/project-card-fix.css";
+@import "./fixes/guest-icon-final-fix.css";
 
 * {
   box-sizing: border-box;
