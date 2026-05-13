@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import './Certificates.css';
 
+// Integrasi Navigasi Kelompok
+import Sidebar from "../navigation/Sidebar";
+import Topbar from "../navigation/Topbar"; 
+
 const Certificates = () => {
   const [certs, setCerts] = useState([
     { id: 1, img: 'https://i.pinimg.com/736x/bb/ae/da/bbaedab06b10a794c2840b4520b6c8c9.jpg' },
@@ -42,98 +46,106 @@ const Certificates = () => {
   };
 
   return (
-    <div className="certs-container">
-      
-      <div className="certs-header">
-        <div>
-          <h2>Your Certificates</h2>
-        </div>
-        <button onClick={() => setShowAdd(true)} className="btn-add-cert">
-          <span className="material-icons" style={{fontSize: '16px'}}>add</span>
-          Add Certificate
-        </button>
-      </div>
+    <div>
+      <Topbar />
+      <Sidebar />
 
-      <div className="certs-grid">
-        {certs.map((cert) => (
-          <div key={cert.id} className="cert-card">
-            <img 
-              src={cert.img} 
-              alt="Sertifikat" 
-              className="cert-img"
-              onError={(e) => { e.target.src = 'https://via.placeholder.com/500x350?text=Sertifikat'; }}
-            />
-            
-            <div className="cert-actions">
-              <button onClick={() => openDelete(cert)} className="action-cert-btn btn-del">
-                <span className="material-icons" style={{fontSize: '18px'}}>delete</span>
-              </button>
-              <button onClick={() => openView(cert)} className="action-cert-btn btn-view">
-                <span className="material-icons" style={{fontSize: '18px'}}>fullscreen</span>
-              </button>
+      {/* Pembungkus Konten Utama Dashboard */}
+      <div className="content">
+        <div className="certs-container" style={{ padding: '0 0 40px 0' }}>
+          
+          <div className="certs-header">
+            <div>
+              <h2>Your Certificates</h2>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* MODAL VIEW */}
-      {showView && (
-        <div className="modal-overlay view-overlay">
-          <div className="view-container" style={{position: 'relative', textAlign: 'center'}}>
-            <button onClick={() => setShowView(false)} style={{position: 'absolute', top: '-50px', right: '0', background: 'none', border: 'none', color: 'white', cursor: 'pointer'}}>
-              <span className="material-icons" style={{fontSize: '40px'}}>close</span>
+            <button onClick={() => setShowAdd(true)} className="btn-add-cert">
+              <span className="material-icons" style={{fontSize: '16px'}}>add</span>
+              Add Certificate
             </button>
-            <img src={selectedCert?.img} alt="Full View" className="view-img" />
           </div>
-        </div>
-      )}
 
-      {/* MODAL DELETE */}
-      {showDelete && (
-        <div className="modal-overlay">
-          <div className="modal-content" style={{maxWidth: '320px'}}>
-            <button onClick={() => setShowDelete(false)} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
-                <span className="material-icons">close</span>
-            </button>
-            <p style={{fontWeight: 'bold', color: '#333', margin: '20px 0', fontSize: '15px'}}>
-              Anda yakin ingin menghapus sertifikat ini??
-            </p>
-            <div className="modal-footer">
-              <button onClick={() => setShowDelete(false)} className="btn-modal btn-cancel">Cancel</button>
-              <button onClick={confirmDelete} className="btn-modal btn-red">Delete</button>
-            </div>
+          <div className="certs-grid">
+            {certs.map((cert) => (
+              <div key={cert.id} className="cert-card">
+                <img 
+                  src={cert.img} 
+                  alt="Sertifikat" 
+                  className="cert-img"
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/500x350?text=Sertifikat'; }}
+                />
+                
+                <div className="cert-actions">
+                  <button onClick={() => openDelete(cert)} className="action-cert-btn btn-del">
+                    <span className="material-icons" style={{fontSize: '18px'}}>delete</span>
+                  </button>
+                  <button onClick={() => openView(cert)} className="action-cert-btn btn-view">
+                    <span className="material-icons" style={{fontSize: '18px'}}>fullscreen</span>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      )}
 
-      {/* MODAL ADD */}
-      {showAdd && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-             <button onClick={() => {setShowAdd(false); setTempImg(null);}} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
-                <span className="material-icons">close</span>
-             </button>
-             <h3 style={{fontFamily: 'serif', marginBottom: '25px'}}>Tambahkan Sertifikat Anda</h3>
-             
-             <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" style={{display: 'none'}} />
-
-             <div className="upload-zone" onClick={() => fileInputRef.current.click()}>
-                {tempImg ? (
-                  <img src={tempImg} alt="Preview" />
-                ) : (
-                  <span style={{fontSize: '10px', fontWeight: 'bold', color: '#999', letterSpacing: '1px'}}>PILIH FILE GAMBAR</span>
-                )}
-             </div>
-
-             <div className="modal-footer">
-                <button onClick={() => {setShowAdd(false); setTempImg(null);}} className="btn-modal btn-cancel">Batal</button>
-                <button onClick={handleSave} disabled={!tempImg} className="btn-modal btn-confirm" style={{opacity: tempImg ? 1 : 0.5}}>
-                  Simpan
+          {/* MODAL VIEW */}
+          {showView && (
+            <div className="modal-overlay view-overlay">
+              <div className="view-container" style={{position: 'relative', textAlign: 'center'}}>
+                <button onClick={() => setShowView(false)} style={{position: 'absolute', top: '-50px', right: '0', background: 'none', border: 'none', color: 'white', cursor: 'pointer'}}>
+                  <span className="material-icons" style={{fontSize: '40px'}}>close</span>
                 </button>
-             </div>
-          </div>
+                <img src={selectedCert?.img} alt="Full View" className="view-img" />
+              </div>
+            </div>
+          )}
+
+          {/* MODAL DELETE */}
+          {showDelete && (
+            <div className="modal-overlay">
+              <div className="modal-content" style={{maxWidth: '320px'}}>
+                <button onClick={() => setShowDelete(false)} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
+                    <span className="material-icons">close</span>
+                </button>
+                <p style={{fontWeight: 'bold', color: '#333', margin: '20px 0', fontSize: '15px'}}>
+                  Anda yakin ingin menghapus sertifikat ini??
+                </p>
+                <div className="modal-footer">
+                  <button onClick={() => setShowDelete(false)} className="btn-modal btn-cancel">Cancel</button>
+                  <button onClick={confirmDelete} className="btn-modal btn-red">Delete</button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL ADD */}
+          {showAdd && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                 <button onClick={() => {setShowAdd(false); setTempImg(null);}} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
+                    <span className="material-icons">close</span>
+                 </button>
+                 <h3 style={{fontFamily: 'serif', marginBottom: '25px'}}>Tambahkan Sertifikat Anda</h3>
+                 
+                 <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" style={{display: 'none'}} />
+
+                 <div className="upload-zone" onClick={() => fileInputRef.current.click()}>
+                    {tempImg ? (
+                      <img src={tempImg} alt="Preview" />
+                    ) : (
+                      <span style={{fontSize: '10px', fontWeight: 'bold', color: '#999', letterSpacing: '1px'}}>PILIH FILE GAMBAR</span>
+                    )}
+                 </div>
+
+                 <div className="modal-footer">
+                    <button onClick={() => {setShowAdd(false); setTempImg(null);}} className="btn-modal btn-cancel">Batal</button>
+                    <button onClick={handleSave} disabled={!tempImg} className="btn-modal btn-confirm" style={{opacity: tempImg ? 1 : 0.5}}>
+                      Simpan
+                    </button>
+                 </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
