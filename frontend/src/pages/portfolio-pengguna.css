@@ -12,31 +12,32 @@
 
 .pf-navbar {
   width: min(1440px, 100%);
-  height: 90px;
+  height: 70px;
   margin: 0 auto;
-  background: var(--color-primary);
+  background: #4a7bbd !important;
   color: var(--color-white);
   font-family: var(--font-body, "Inter", sans-serif);
 }
 
 .pf-navbar-container {
   width: 100%;
-  height: 90px;
-  padding: 0 23px 0 29px;
+  height: 70px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .pf-navbar-left {
   display: flex;
   align-items: center;
-  gap: 17px;
+  gap: 14px;
 }
 
 .pf-menu-button {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   border: none;
   background: transparent;
   padding: 0;
@@ -47,8 +48,8 @@
 }
 
 .pf-menu-button img {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   display: block;
 }
@@ -56,34 +57,34 @@
 .pf-logo {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .pf-logo img {
-  width: 68px;
-  height: 68px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   background: var(--color-white);
   border-radius: 50%;
-  padding: 4px;
+  padding: 3px;
 }
 
 .pf-logo span {
-  width: 168px;
-  height: 48px;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   color: var(--color-light-blue);
   font-family: var(--font-body, "Inter", sans-serif);
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 800;
-  line-height: 48px;
-  letter-spacing: -0.5px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
 }
 
 .pf-icon-circle {
-  width: 65px;
-  height: 65px;
+  width: 46px;
+  height: 46px;
   background: var(--color-white);
   border-radius: 50%;
   display: flex;
@@ -92,8 +93,8 @@
 }
 
 .pf-icon-circle img {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
   display: block;
 }
@@ -619,40 +620,40 @@
 
 @media (max-width: 900px) {
   .pf-navbar {
-    height: 72px;
+    height: 64px;
   }
 
   .pf-navbar-container {
-    height: 72px;
+    height: 64px;
     padding: 0 18px;
   }
 
   .pf-menu-button,
   .pf-menu-button img {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
   }
 
   .pf-logo img {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
   }
 
   .pf-logo span {
     width: auto;
     height: auto;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1.2;
   }
 
   .pf-icon-circle {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
   }
 
   .pf-icon-circle img {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .pf-main {
@@ -727,11 +728,11 @@
 
 @media (max-width: 480px) {
   .pf-navbar {
-    height: 64px;
+    height: 58px;
   }
 
   .pf-navbar-container {
-    height: 64px;
+    height: 58px;
     padding: 0 14px;
   }
 
@@ -741,8 +742,8 @@
 
   .pf-menu-button,
   .pf-menu-button img {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
   }
 
   .pf-logo {
@@ -750,25 +751,25 @@
   }
 
   .pf-logo img {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 
   .pf-logo span {
     width: auto;
     height: auto;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.2;
   }
 
   .pf-icon-circle {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
 
   .pf-icon-circle img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
   .pf-card {
@@ -853,6 +854,7 @@
     justify-content: center;
   }
 }
+
 .pf-certificate-card,
 .gt-certificate-card {
   border: none !important;
