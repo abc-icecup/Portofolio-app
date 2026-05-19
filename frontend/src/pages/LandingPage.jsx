@@ -105,7 +105,7 @@ function LandingPage() {
         </section>
 
         <section className="home-cta-section">
-          <Link to="/portfolio">
+          <Link to="/signup">
             <button type="button">Mulai Sekarang</button>
           </Link>
         </section>
