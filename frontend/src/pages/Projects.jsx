@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "../navigation/Sidebar";
-import Topbar from "../navigation/Topbar";
+import NavigationLayout from "../navigation/NavigationLayout";
 import AddProjectModal from "../components/AddProjectModal";
 import "./Projects.css";
 
@@ -35,41 +34,36 @@ function Projects() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="projects-page">
-      <Sidebar />
+    <NavigationLayout>
 
-      <div className="main-content">
-        <Topbar />
+      <div className="projects-container">
+        <div className="projects-header">
+          <h1>Your Projects</h1>
+          
+            <button
+              className="add-btn"
+              onClick={() => setShowModal(true)}
+            >
+              + Add Project
+            </button>
+        </div>
 
-        <div className="projects-container">
-          <div className="projects-header">
-            <h1>Your Projects</h1>
-            
-             <button
-                className="add-btn"
-                onClick={() => setShowModal(true)}
-              >
-                + Add Project
-              </button>
-          </div>
+        <div className="projects-grid">
+          {projectsData.map((project) => (
+            <div className="project-card" key={project.id}>
+              <img src={project.image} alt={project.title} />
 
-          <div className="projects-grid">
-            {projectsData.map((project) => (
-              <div className="project-card" key={project.id}>
-                <img src={project.image} alt={project.title} />
-
-                <div className="overlay">
-                  <h3>{project.title}</h3>
-                  <button className="details-btn">Details &gt;</button>
-                </div>
-
-                <div className="card-actions">
-                  <button className="edit-btn">✏️</button>
-                  <button className="delete-btn">🗑️</button>
-                </div>
+              <div className="overlay">
+                <h3>{project.title}</h3>
+                <button className="details-btn">Details &gt;</button>
               </div>
-            ))}
-          </div>
+
+              <div className="card-actions">
+                <button className="edit-btn">✏️</button>
+                <button className="delete-btn">🗑️</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -78,7 +72,7 @@ function Projects() {
         <AddProjectModal onClose={() => setShowModal(false)} />
       )}
 
-    </div>
+    </NavigationLayout>
   );
 }
 

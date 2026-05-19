@@ -48,3 +48,31 @@
   padding: 10px;
   cursor: pointer;
 }
+
+.document-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.menu-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.menu-btn:hover {
+  background: #e6ecf7;
+}
+
+.menu-icon {
+  width: 22px;
+  height: 22px;
+}

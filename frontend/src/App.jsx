@@ -1,11 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// ===== LANDING PAGE =====
 import LandingPage from "./pages/LandingPage";
+
+// ===== DASHBOARD =====
+import Dashboard from "./pages/Dashboard";
+import Projects from "./pages/Projects";
+import Skills from "./pages/Skills";
+import Certificates from "./pages/Certificates";
+import Profile from "./pages/Profile";
+
+// ===== PORTFOLIO =====
 import HalamanPortfolioPengguna from "./pages/HalamanPortfolioPengguna";
 import HalamanPortfolioTamu from "./pages/HalamanPortfolioTamu";
+
+// ===== AUTH =====
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
+// ===== PROJECT DETAIL =====
 import ProjectHalamanPengguna from "./pages/ProjectHalamanPengguna";
 import ProjectHalamanTamu from "./pages/ProjectHalamanTamu";
 
@@ -15,6 +28,16 @@ function App() {
       <Routes>
         {/* ===== LANDING PAGE ===== */}
         <Route path="/" element={<LandingPage />} />
+
+        {/* ===== DASHBOARD ===== */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/projects" element={<Projects />} />
+
+        {/* ===== OPTIONAL PAGES ===== */}
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/certificates" element={<Certificates />} />
+        <Route path="/profile" element={<Profile />} /> 
+       
 
         {/* ===== PORTFOLIO ===== */}
         <Route path="/portfolio" element={<HalamanPortfolioPengguna />} />

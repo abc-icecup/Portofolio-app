@@ -1,4 +1,4 @@
-import "../styles/pages/CertificatePortrait.css";
+import "./CertificatePortrait.css";
 
 function CertificatePortrait({ image, onClose }) {
   return (

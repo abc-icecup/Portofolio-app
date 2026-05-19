@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./LandingPage.css";
 
 import logo from "../assets/images/logo_my_porto.svg";
 import profile1 from "../assets/images/profile1.svg";

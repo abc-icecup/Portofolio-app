@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import './Profile.css';
 
 // Integrasi Navigasi Kelompok
-import Sidebar from "../navigation/Sidebar";
-import Topbar from "../navigation/Topbar";
+import NavigationLayout from "../navigation/NavigationLayout";
 
 const Profile = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -41,9 +40,7 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <Topbar />
-      <Sidebar />
+    <NavigationLayout>
 
       {/* Pembungkus Konten Utama Dashboard */}
       <div className="content">
@@ -121,7 +118,8 @@ const Profile = () => {
           )}
         </div>
       </div>
-    </div>
+
+    </NavigationLayout>
   );
 };
 

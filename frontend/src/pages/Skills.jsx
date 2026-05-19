@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./Skills.css";
 
 // Integrasi Navigasi Kelompok
-import Sidebar from "../navigation/Sidebar";
-import Topbar from "../navigation/Topbar";
+import NavigationLayout from "../navigation/NavigationLayout";
+
 
 const Skills = () => {
   const [skills, setSkills] = useState([
@@ -63,9 +63,7 @@ const Skills = () => {
   };
 
   return (
-    <div>
-      <Topbar />
-      <Sidebar />
+    <NavigationLayout>
 
       {/* Pembungkus Konten Utama Dashboard */}
       <div className="content">
@@ -156,7 +154,8 @@ const Skills = () => {
           )}
         </div>
       </div>
-    </div>
+
+    </NavigationLayout>
   );
 };
 

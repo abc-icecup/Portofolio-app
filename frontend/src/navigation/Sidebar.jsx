@@ -8,43 +8,58 @@ import ProfileIcon from "../assets/profileLogo.svg?react";
 
 import "./Sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen }) {
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <ul>
 
         <li>
-          <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <DashboardIcon className="icon" />
-            Dashboard
+            <span>Dashboard</span>
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/projects" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink
+            to="/projects"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <ProjectsIcon className="icon" />
-            Projects
+            <span>Projects</span>
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/skills" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink
+            to="/skills"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <SkillsIcon className="icon" />
-            Skills
+            <span>Skills</span>
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/certificates" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink
+            to="/certificates"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <CertificatesIcon className="icon" />
-            Certificates
+            <span>Certificates</span>
           </NavLink>
         </li>
 
         <li>
-          <NavLink to="/profile" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <ProfileIcon className="icon" />
-            Profile
+            <span>Profile</span>
           </NavLink>
         </li>
 

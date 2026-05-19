@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./HalamanPortfolioTamu.css";
 
 import CertificatePortrait from "../components/CertificatePortrait";
 import CertificateLandscape from "../components/CertificateLandscape";

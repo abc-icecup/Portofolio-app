@@ -1,4 +1,4 @@
-import "../styles/pages/CertificateLandscape.css";
+import "./CertificateLandscape.css";
 
 function CertificateLandscape({ image, onClose }) {
   return (
