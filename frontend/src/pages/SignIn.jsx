@@ -1,9 +1,48 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./signin-signup.css";
 
 import logo from "../assets/images/logo_my_porto.svg";
 
 function SignIn() {
+  //HUBUNGKAN BACKEND
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //Function handleSubmit (BACKEND)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const response = await axios.post(
+        "http://localhost:5000/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      // ambil token JWT
+      const token = response.data.token;
+
+      // simpan token ke localStorage
+      localStorage.setItem("token", token);
+
+      alert("Login berhasil");
+
+      console.log(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Login gagal");
+    }
+  };
+
+  //FRONTEND
   return (
     <div className="auth-page">
       <div className="auth-container">
@@ -18,9 +57,9 @@ function SignIn() {
             <h1>Welcome Back!!</h1>
             <p>Sign In to build your protofolio</p>
 
-            <form>
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+            <form onSubmit={handleSubmit}>
+              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <button type="submit">Sign In</button>
             </form>
 

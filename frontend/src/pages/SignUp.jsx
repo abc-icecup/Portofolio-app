@@ -1,9 +1,47 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./signin-signup.css";
 
 import logo from "../assets/images/logo_my_porto.svg";
 
 function SignUp() {
+  //HUBUNGKAN BACKEND
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  //Function handleSubmit (BACKEND)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const response = await axios.post(
+        "http://localhost:5000/auth/register",
+        {
+          username,
+          email,
+          password,
+        }
+      );
+
+      alert(response.data.message);
+
+      // reset form
+      setUsername("");
+      setEmail("");
+      setPassword("");
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Register gagal");
+    }
+  };  
+
+  //FRONTEND
   return (
     <div className="auth-page">
       <div className="auth-container">
@@ -18,10 +56,10 @@ function SignUp() {
             <h1>Welcome!!</h1>
             <p>Sign Up to start build your protofolio</p>
 
-            <form>
-              <input type="text" placeholder="Username" />
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+            <form onSubmit={handleSubmit}>
+              <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <button type="submit">Sign Up</button>
             </form>
 
