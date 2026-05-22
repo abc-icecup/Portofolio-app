@@ -12,8 +12,8 @@ import project1 from "../assets/images/project1.png";
 import project2 from "../assets/images/project2.png";
 import project3 from "../assets/images/project3.png";
 
-import serti1 from "../assets/images/serti1.png";
-import serti2 from "../assets/images/serti2.png";
+import serti1 from "../assets/cert1.jpg";
+import serti2 from "../assets/cert2.jpg";
 
 import figmaIcon from "../assets/images/ikon_figma.png";
 import reactIcon from "../assets/images/ikon_react.png";
@@ -26,7 +26,6 @@ function HalamanPortfolioTamu() {
 
   return (
     <div className="gt-page">
-      {/* ===== NAVBAR ===== */}
       <header className="gt-navbar">
         <div className="gt-navbar-container">
           <div className="gt-logo">
@@ -46,27 +45,29 @@ function HalamanPortfolioTamu() {
         </div>
       </header>
 
-      {/* ===== MAIN ===== */}
       <main className="gt-main">
         <section className="gt-card">
           <h2>Welcome To My Portofolio</h2>
 
-          {/* INTRO */}
           <section className="gt-intro">
             <div className="gt-intro-text">
               <h4>Hello, I’m</h4>
               <h1>Jamal</h1>
               <p>
                 Seorang engineer yang berfokus pada pengembangan aplikasi web
-                modern dengan pengalaman dalam membangun antarmuka interaktif
-                menggunakan React dan teknologi frontend lainnya.
+                modern dengan pengalaman dalam membangun antarmuka interaktif,
+                menggunakan React dan sistem backend pendukung. Memiliki
+                ketertarikan kuat pada desain yang bersih, performa aplikasi,
+                serta pengalaman pengguna yang baik untuk kebutuhan proyek
+                profesional.
               </p>
             </div>
 
-            <img src={profile1} alt="Profile Jamal" className="gt-photo" />
+            <div className="gt-photo-wrapper">
+              <img src={profile1} alt="Profile Jamal" className="gt-photo" />
+            </div>
           </section>
 
-          {/* SKILLS */}
           <section className="gt-skills">
             <h3>Skills</h3>
 
@@ -83,7 +84,7 @@ function HalamanPortfolioTamu() {
 
               <div className="gt-skill-card">
                 <img src={nodeIcon} alt="Node.js" />
-                <span>Node.js</span>
+                <span>Node.Js</span>
               </div>
 
               <div className="gt-skill-card">
@@ -93,7 +94,6 @@ function HalamanPortfolioTamu() {
             </div>
           </section>
 
-          {/* PROJECTS */}
           <section className="gt-projects">
             <h3>Projects</h3>
 
@@ -101,42 +101,47 @@ function HalamanPortfolioTamu() {
               <div className="gt-project-card">
                 <img src={project1} alt="Website E-commerce" />
 
-                <div className="gt-project-text">
-                  <h4>Website E-commerce</h4>
+                <div className="gt-project-overlay">
+                  <div className="gt-project-text">
+                    <h4>Website E-Commerce Fashion (Frontend)</h4>
 
-                  <Link to="/project-halaman-tamu-1">
-                    <button type="button">Detail</button>
-                  </Link>
+                    <Link to="/project-halaman-tamu-1">
+                      <button type="button">Detail</button>
+                    </Link>
+                  </div>
                 </div>
               </div>
 
               <div className="gt-project-card">
-                <img src={project2} alt="UI/UX Design Aplikasi" />
+                <img src={project2} alt="UI/UX Design Aplikasi Mobile" />
 
-                <div className="gt-project-text">
-                  <h4>UI/UX Design Aplikasi</h4>
+                <div className="gt-project-overlay">
+                  <div className="gt-project-text">
+                    <h4>UI/UX Design Aplikasi Mobile Travel Online</h4>
 
-                  <Link to="/project-halaman-tamu-1">
-                    <button type="button">Detail</button>
-                  </Link>
+                    <Link to="/project-halaman-tamu-2">
+                      <button type="button">Detail</button>
+                    </Link>
+                  </div>
                 </div>
               </div>
 
               <div className="gt-project-card">
                 <img src={project3} alt="Poster Promosi Event" />
 
-                <div className="gt-project-text">
-                  <h4>Poster Promosi Event</h4>
+                <div className="gt-project-overlay">
+                  <div className="gt-project-text">
+                    <h4>Poster Promosi Event Seminar Arkeologi</h4>
 
-                  <Link to="/project-halaman-tamu-1">
-                    <button type="button">Detail</button>
-                  </Link>
+                    <Link to="/project-halaman-tamu-3">
+                      <button type="button">Detail</button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* CERTIFICATES */}
           <section className="gt-certificates">
             <h3>Certificates</h3>
 
@@ -159,7 +164,6 @@ function HalamanPortfolioTamu() {
             </div>
           </section>
 
-          {/* CONTACT */}
           <section className="gt-contact">
             <h3>Contact</h3>
 

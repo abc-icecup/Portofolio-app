@@ -46,7 +46,6 @@
   padding: 3px;
 }
 
-/* MyPorto dekat logo = Inter */
 .home-logo span {
   width: auto;
   height: auto;
@@ -136,7 +135,6 @@
   justify-content: center;
 }
 
-/* MyPorto di background = Playfair */
 .home-hero h1 {
   width: auto;
   min-height: auto;
@@ -151,7 +149,6 @@
   margin: 0;
 }
 
-/* Create your portfolio fastly = Playfair */
 .home-hero p {
   width: auto;
   max-width: 503px;
@@ -274,6 +271,7 @@
   text-align: center;
 }
 
+/* Foto default untuk portfolio */
 .home-portfolio-card img {
   position: absolute;
   bottom: 0;
@@ -281,7 +279,17 @@
   width: 230px;
   height: 305px;
   object-fit: contain;
+  object-position: bottom center;
+  display: block;
   z-index: 1;
+}
+
+/* Khusus foto James A. Snow agar posisinya rapi dan tidak ngambang */
+.home-portfolio-card:first-child img {
+  width: 235px;
+  height: 310px;
+  right: 16px;
+  bottom: 0;
 }
 
 /* ================= ABOUT SECTION ================= */
@@ -454,6 +462,13 @@
     right: 12px;
   }
 
+  .home-portfolio-card:first-child img {
+    width: 228px;
+    height: 300px;
+    right: 12px;
+    bottom: 0;
+  }
+
   .home-feature-section {
     max-width: 1060px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -536,6 +551,13 @@
   .home-portfolio-card {
     width: 100%;
     height: 320px;
+  }
+
+  .home-portfolio-card:first-child img {
+    width: 230px;
+    height: 302px;
+    right: 12px;
+    bottom: 0;
   }
 
   .home-about-section h2 {
@@ -664,6 +686,13 @@
     width: 190px;
     height: 250px;
     right: -8px;
+  }
+
+  .home-portfolio-card:first-child img {
+    width: 195px;
+    height: 255px;
+    right: -6px;
+    bottom: 0;
   }
 
   .home-about-section h2 {

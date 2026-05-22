@@ -274,8 +274,6 @@
   justify-content: flex-start;
 }
 
-/* FINAL PROJECT CARD - DISESUAIKAN DENGAN HALAMAN PORTFOLIO TAMU */
-
 .pf-page .pf-card .pf-projects .pf-project-list .pf-project-card {
   position: relative !important;
   width: 327.17px !important;
@@ -449,33 +447,42 @@
 /* ================= CERTIFICATES ================= */
 
 .pf-certificates {
-  margin-bottom: 36px;
+  margin-bottom: 44px;
 }
 
 .pf-certificate-list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 310px);
-  gap: 42px;
-  align-items: start;
+  grid-template-columns: repeat(3, 327.17px);
+  gap: 36px;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
-/* PERBAIKAN FINAL CERTIFICATE CARD */
-
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
-  width: 310px !important;
+  width: 327.17px !important;
   height: auto !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
   background: transparent !important;
   border: none !important;
+  outline: none !important;
   box-shadow: none !important;
-  box-sizing: border-box !important;
   padding: 0 !important;
   margin: 0 !important;
-  display: block !important;
+  overflow: visible !important;
   line-height: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:hover {
+  transform: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card::before,
@@ -484,29 +491,33 @@
   display: none !important;
 }
 
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card a {
-  display: block !important;
-  width: 100% !important;
-  height: auto !important;
-  line-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-}
-
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card img {
+  display: block !important;
   width: 100% !important;
   height: auto !important;
   object-fit: contain !important;
   object-position: center top !important;
-  display: block !important;
-  border-radius: 10px !important;
+  background: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  margin: 0 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  border-radius: 0 !important;
   padding: 0 !important;
-  background: transparent !important;
+  margin: 0 !important;
+}
+
+/* Sertifikat portrait dibuat lebih besar dan sejajar dengan kolom project */
+.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:first-child img {
+  max-width: 327.17px !important;
+  max-height: none !important;
+}
+
+/* Sertifikat landscape dibuat lebih besar dan sejajar dengan kolom project */
+.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:nth-child(2) img {
+  max-width: 327.17px !important;
+  max-height: none !important;
 }
 
 /* ================= CONTACT ================= */
@@ -588,8 +599,12 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: repeat(2, 310px);
-    gap: 40px;
+    grid-template-columns: repeat(3, 327.17px);
+    gap: 28px;
+  }
+
+  .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
+    width: 327.17px !important;
   }
 }
 
@@ -613,7 +628,7 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: repeat(2, 310px);
+    grid-template-columns: repeat(2, 327.17px);
     justify-content: center;
   }
 }
@@ -721,8 +736,8 @@
   }
 
   .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
-    width: 310px !important;
-    height: auto !important;
+    width: 327.17px !important;
+    justify-content: center !important;
   }
 }
 
@@ -840,33 +855,27 @@
 
   .pf-project-text button::after {
     font-size: 26px;
-    font-weight: 400;
+  }
+
+  .pf-certificate-list {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
   }
 
   .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
     width: 100% !important;
-    max-width: 310px !important;
-    height: auto !important;
+    max-width: 327.17px !important;
+    justify-content: center !important;
+  }
+
+  .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card img {
+    width: 100% !important;
+    max-width: 280px !important;
   }
 
   .pf-contact-item {
     width: 100%;
     justify-content: center;
   }
-}
-
-.pf-certificate-card,
-.gt-certificate-card {
-  border: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  outline: none !important;
-  box-shadow: none !important;
-  cursor: pointer;
-}
-
-.pf-certificate-card img,
-.gt-certificate-card img {
-  border: none !important;
-  outline: none !important;
 }

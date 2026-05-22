@@ -15,8 +15,8 @@ import project1 from "../assets/images/project1.png";
 import project2 from "../assets/images/project2.png";
 import project3 from "../assets/images/project3.png";
 
-import serti1 from "../assets/images/serti1.png";
-import serti2 from "../assets/images/serti2.png";
+import serti1 from "../assets/cert1.jpg";
+import serti2 from "../assets/cert2.jpg";
 
 import figmaIcon from "../assets/images/ikon_figma.png";
 import reactIcon from "../assets/images/ikon_react.png";

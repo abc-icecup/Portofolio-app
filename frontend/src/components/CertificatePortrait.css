@@ -1,84 +1,97 @@
-/* ================= CERTIFICATE PORTRAIT VIEW ================= */
+/* ================= CERTIFICATE PORTRAIT POPUP ================= */
 
-.cert-view-overlay {
+.cert-popup-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.42);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  box-sizing: border-box;
 }
 
-.cert-view-wrapper {
+.cert-popup-view-overlay {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cert-popup-container {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-
-.cert-view-image {
-  display: block;
-  object-fit: contain;
+  text-align: center;
   background: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.cert-view-image-portrait {
+.cert-popup-img {
+  display: block;
+  max-width: 95vw;
+  max-height: 80vh;
+  object-fit: contain;
+  background: white;
+  border-radius: 15px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.cert-popup-img-portrait {
   width: auto;
   height: auto;
   max-width: 430px;
-  max-height: 86vh;
 }
 
-.cert-view-close {
+.cert-popup-close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
+  top: 0;
+  right: -56px;
+  width: 42px;
+  height: 42px;
+  background: none !important;
   border: none !important;
   outline: none !important;
-  background: transparent !important;
-  color: #ffffff;
-  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-size: 42px;
+  font-weight: 300;
   line-height: 1;
-  cursor: pointer;
-  z-index: 10000;
   padding: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
-  transition: transform 0.2s ease;
-}
-
-.cert-view-close:hover {
-  transform: scale(1.08);
-}
-
-/* ================= CERTIFICATE BUTTON ================= */
-
-.pf-certificate-card,
-.gt-certificate-card {
-  border: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  outline: none !important;
   box-shadow: none !important;
-  cursor: pointer;
-  display: block;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pf-certificate-card img,
-.gt-certificate-card img {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+.cert-popup-close:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .cert-popup-overlay {
+    padding: 16px;
+  }
+
+  .cert-popup-img {
+    max-width: 92vw;
+    max-height: 78vh;
+  }
+
+  .cert-popup-close {
+    top: -42px;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    font-size: 36px;
+  }
 }

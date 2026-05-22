@@ -179,21 +179,31 @@
   text-align: justify;
 }
 
-/* FOTO DIPERBAIKI AGAR TIDAK TERPOTONG */
+/* ================= PROFILE PHOTO ================= */
 
-.gt-photo {
+.gt-photo-wrapper {
   width: 220px;
   height: 220px;
-  padding: 10px;
-  border-radius: 50%;
-  object-fit: contain;
-  object-position: center bottom;
   justify-self: center;
   align-self: center;
+  border-radius: 50%;
   background: #111111;
-  display: block;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
+}
+
+.gt-photo {
+  width: 205px;
+  height: 230px;
+  object-fit: contain;
+  object-position: center bottom;
+  border-radius: 0;
+  background: transparent;
+  display: block;
+  transform: translateY(8px);
 }
 
 /* ================= SECTION TITLE ================= */
@@ -329,14 +339,39 @@
   transform-origin: center center !important;
 }
 
+.gt-page .gt-card .gt-projects .gt-project-list .gt-project-card .gt-project-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 42%,
+    rgba(0, 0, 0, 0.08) 68%,
+    rgba(0, 0, 0, 0.34) 100%
+  ) !important;
+}
+
+.gt-page .gt-card .gt-projects .gt-project-list .gt-project-card .gt-project-overlay::before,
+.gt-page .gt-card .gt-projects .gt-project-list .gt-project-card .gt-project-overlay::after {
+  content: none !important;
+  display: none !important;
+}
+
 .gt-project-text {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
-  z-index: 5;
-  color: var(--color-white);
+  width: 100%;
+  padding: 0 16px 16px;
   box-sizing: border-box;
+  color: var(--color-white);
+  z-index: 5;
 }
 
 .gt-project-text h4 {
@@ -414,31 +449,75 @@
 /* ================= CERTIFICATES ================= */
 
 .gt-certificates {
-  margin-bottom: 36px;
+  margin-bottom: 44px;
 }
 
 .gt-certificate-list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 310px);
-  gap: 42px;
-  align-items: start;
+  grid-template-columns: repeat(3, 327.17px);
+  gap: 36px;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
-.gt-page .gt-card .gt-certificates .gt-certificate-list img {
-  width: 310px !important;
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
+  width: 327.17px !important;
   height: auto !important;
-  object-fit: contain !important;
-  object-position: center top !important;
-  display: block !important;
-  border-radius: 10px !important;
+  background: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  margin: 0 !important;
   padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  line-height: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:hover {
+  transform: none !important;
   background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card::before,
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center top !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:first-child img {
+  max-width: 327.17px !important;
+  max-height: none !important;
+}
+
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:nth-child(2) img {
+  max-width: 327.17px !important;
+  max-height: none !important;
 }
 
 /* ================= CONTACT ================= */
@@ -499,10 +578,14 @@
     gap: 50px;
   }
 
-  .gt-photo {
+  .gt-photo-wrapper {
     width: 220px;
     height: 220px;
-    padding: 10px;
+  }
+
+  .gt-photo {
+    width: 205px;
+    height: 220px;
   }
 
   .gt-project-list {
@@ -510,9 +593,18 @@
     gap: 28px;
   }
 
+  .gt-page .gt-card .gt-projects .gt-project-list .gt-project-card {
+    width: 327.17px !important;
+    height: 328px !important;
+  }
+
   .gt-certificate-list {
-    grid-template-columns: repeat(2, 310px);
-    gap: 40px;
+    grid-template-columns: repeat(3, 327.17px);
+    gap: 28px;
+  }
+
+  .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
+    width: 327.17px !important;
   }
 }
 
@@ -536,7 +628,7 @@
   }
 
   .gt-certificate-list {
-    grid-template-columns: repeat(2, 310px);
+    grid-template-columns: repeat(2, 327.17px);
     justify-content: center;
   }
 }
@@ -612,12 +704,16 @@
     text-align: left;
   }
 
-  .gt-photo {
+  .gt-photo-wrapper {
     width: 200px;
     height: 200px;
-    padding: 10px;
-    order: -1;
     margin: 0 auto;
+    order: -1;
+  }
+
+  .gt-photo {
+    width: 180px;
+    height: 190px;
   }
 
   .gt-skills h3,
@@ -625,7 +721,6 @@
   .gt-certificates h3,
   .gt-contact h3 {
     font-size: 22px;
-    text-align: center;
   }
 
   .gt-skill-list {
@@ -637,10 +732,20 @@
     justify-items: center;
   }
 
+  .gt-page .gt-card .gt-projects .gt-project-list .gt-project-card {
+    width: 327.17px !important;
+    height: 328px !important;
+  }
+
   .gt-certificate-list {
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 28px;
+  }
+
+  .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
+    width: 327.17px !important;
+    justify-content: center !important;
   }
 
   .gt-contact {
@@ -710,10 +815,14 @@
     font-size: 14px;
   }
 
-  .gt-photo {
+  .gt-photo-wrapper {
     width: 170px;
     height: 170px;
-    padding: 8px;
+  }
+
+  .gt-photo {
+    width: 150px;
+    height: 160px;
   }
 
   .gt-skill-card {
@@ -731,9 +840,7 @@
   }
 
   .gt-project-text {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+    padding: 0 14px 14px;
   }
 
   .gt-project-text h4 {
@@ -759,44 +866,25 @@
     font-weight: 400;
   }
 
-  .gt-page .gt-card .gt-certificates .gt-certificate-list img {
+  .gt-certificate-list {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+  }
+
+  .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
     width: 100% !important;
-    max-width: 310px !important;
-    height: auto !important;
+    max-width: 327.17px !important;
+    justify-content: center !important;
+  }
+
+  .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card img {
+    width: 100% !important;
+    max-width: 280px !important;
   }
 
   .gt-contact-item {
     width: 100%;
     justify-content: center;
   }
-}
-
-.gt-certificate-card {
-  border: none;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-  display: block;
-}
-
-.gt-certificate-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pf-certificate-card,
-.gt-certificate-card {
-  border: none !important;
-  padding: 0 !important;
-  background: transparent !important;
-  outline: none !important;
-  box-shadow: none !important;
-  cursor: pointer;
-}
-
-.pf-certificate-card img,
-.gt-certificate-card img {
-  border: none !important;
-  outline: none !important;
 }
