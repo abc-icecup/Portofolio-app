@@ -37,7 +37,7 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-//UPDATE LOGIN USER (SEMENTARA)
+//UPDATE/PUT LOGIN USER (SEMENTARA)
 export const updateUser = async (req, res) => {
   try {
 

@@ -22,10 +22,13 @@ export const register = async (req, res) => {
       message: "User berhasil didaftarkan",
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+      console.log("REGISTER ERROR:");
+      console.log(error);
+
+      res.status(500).json({
+          message: error.message
+      });
+    }
 };
 
 
