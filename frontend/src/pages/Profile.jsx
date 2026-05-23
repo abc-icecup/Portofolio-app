@@ -11,8 +11,10 @@ const Profile = () => {
     nama: '',
     deskripsi: '',
     email: '',
-    sosmed: ''
   });
+
+  // DIUBAH: State sosial media diubah menjadi array untuk menyimpan banyak link
+  const [sosmedList, setSosmedList] = useState(['']);
 
   const [profileImage, setProfileImage] = useState("https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg");
   const fileInputRef = useRef(null);
@@ -20,6 +22,29 @@ const Profile = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // BARU: Menangani perubahan teks pada baris input sosmed tertentu
+  const handleSosmedChange = (index, value) => {
+    const updatedSosmed = [...sosmedList];
+    updatedSosmed[index] = value;
+    setSosmedList(updatedSosmed);
+  };
+
+  // BARU: Fungsi untuk menambah baris input baru ketika tombol "+" diklik
+  const addSosmedField = () => {
+    setSosmedList([...sosmedList, '']);
+  };
+
+  // BARU: Fungsi opsional untuk menghapus baris input jika diinginkan
+  const removeSosmedField = (index) => {
+    if (sosmedList.length > 1) {
+      const updatedSosmed = sosmedList.filter((_, i) => i !== index);
+      setSosmedList(updatedSosmed);
+    } else {
+      // Jika baris tinggal 1, kosongkan saja isinya
+      setSosmedList(['']);
+    }
   };
 
   const handleImageChange = (event) => {
@@ -35,7 +60,8 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    console.log("Data disimpan:", { ...formData, profileImage });
+    // Menggabungkan data form utama dengan list sosial media yang sudah diisi
+    console.log("Data disimpan:", { ...formData, sosmed: sosmedList, profileImage });
     alert("Profil berhasil diperbarui!");
   };
 
@@ -84,12 +110,30 @@ const Profile = () => {
 
               <div className="input-item">
                 <label>Link Sosial Media</label>
-                <div className="sosmed-input-wrapper">
-                  <input name="sosmed" type="text" value={formData.sosmed} onChange={handleInputChange} placeholder="https://instagram.com/user" style={{flex: 1}} />
-                  <button className="btn-add-sosmed">
-                    <span className="material-icons">add</span>
-                  </button>
-                </div>
+                {/* DIUBAH: Melakukan looping (mapping) untuk merender setiap baris sosial media */}
+                {sosmedList.map((sosmedValue, index) => (
+                  <div className="sosmed-input-wrapper" key={index} style={{ marginBottom: '10px' }}>
+                    <input 
+                      type="text" 
+                      value={sosmedValue} 
+                      onChange={(e) => handleSosmedChange(index, e.target.value)} 
+                      placeholder="https://instagram.com/user" 
+                      style={{flex: 1}} 
+                    />
+                    
+                    {/* Jika ini adalah baris terakhir, tampilkan tombol Tambah (+) */}
+                    {index === sosmedList.length - 1 ? (
+                      <button type="button" onClick={addSosmedField} className="btn-add-sosmed">
+                        <span className="material-icons">add</span>
+                      </button>
+                    ) : (
+                      // Jika bukan baris terakhir, tampilkan tombol Hapus (close/remove) agar user bisa membatalkan
+                      <button type="button" onClick={() => removeSosmedField(index)} className="btn-add-sosmed" style={{ backgroundColor: '#EF4444' }}>
+                        <span className="material-icons">close</span>
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
