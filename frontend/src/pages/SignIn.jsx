@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./signin-signup.css";
 
 import logo from "../assets/images/logo_my_porto.svg";
 
 function SignIn() {
+  
+  const navigate = useNavigate();
+  
   //HUBUNGKAN BACKEND
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,9 +33,18 @@ function SignIn() {
       // simpan token ke localStorage
       localStorage.setItem("token", token);
 
+      // simpan data user jika ada
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
       alert("Login berhasil");
 
       console.log(response.data);
+
+      // redirect ke dashboard
+      navigate("/dashboard");
 
     } catch (error) {
 

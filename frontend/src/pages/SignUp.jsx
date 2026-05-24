@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./signin-signup.css";
 
 import logo from "../assets/images/logo_my_porto.svg";
 
 function SignUp() {
+
+  const navigate = useNavigate();
+
   //HUBUNGKAN BACKEND
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -28,10 +31,25 @@ function SignUp() {
 
       alert(response.data.message);
 
+      // simpan token
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      // simpan user
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
       // reset form
       setUsername("");
       setEmail("");
       setPassword("");
+
+      // redirect dashboard
+      navigate("/dashboard");
 
     } catch (error) {
 

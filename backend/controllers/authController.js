@@ -12,15 +12,35 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // simpan user
-    await User.create({
+    const newUser = await User.create({
       username,
       email,
       password: hashedPassword,
     });
 
+    // generate token
+    const token = jwt.sign(
+      {
+        id: newUser.id,
+        email: newUser.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
     res.status(201).json({
       message: "User berhasil didaftarkan",
+      token,
+
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+      },
     });
+
   } catch (error) {
       console.log("REGISTER ERROR:");
       console.log(error);
@@ -77,6 +97,12 @@ export const login = async (req, res) => {
     res.status(200).json({
       message: "Login berhasil",
       token,
+
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
     });
 
   } catch (error) {
