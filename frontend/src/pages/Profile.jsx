@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Profile.css';
 
 // Integrasi Navigasi Kelompok
@@ -8,7 +8,7 @@ const Profile = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   
   const [formData, setFormData] = useState({
-    nama: '',
+    username: '',
     deskripsi: '',
     email: '',
   });
@@ -59,11 +59,77 @@ const Profile = () => {
     fileInputRef.current.click();
   };
 
-  const handleSave = () => {
-    // Menggabungkan data form utama dengan list sosial media yang sudah diisi
-    console.log("Data disimpan:", { ...formData, sosmed: sosmedList, profileImage });
-    alert("Profil berhasil diperbarui!");
+  const handleSave = async () => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        "http://localhost:5000/users/profile",
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      alert(data.message);
+
+      console.log(data);
+
+    } catch (error) {
+      console.log(error);
+
+      alert("Gagal update profile");
+    }
   };
+
+  //USEEFFECT UNTUK GET DAN PUT DATABASE
+  useEffect(() => {
+
+    const fetchProfile = async () => {
+
+      try {
+
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+          "http://localhost:5000/users/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        setFormData((prev) => ({
+          ...prev,
+          username: data.username,
+          email: data.email,
+        }));
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProfile();
+
+  }, []);  
+
 
   return (
     <NavigationLayout>
@@ -95,7 +161,7 @@ const Profile = () => {
             <div className="form-group">
               <div className="input-item">
                 <label>Nama Lengkap</label>
-                <input name="nama" type="text" value={formData.nama} onChange={handleInputChange} placeholder="username" />
+                <input name="username" type="text" value={formData.username} onChange={handleInputChange} placeholder="username" />
               </div>
 
               <div className="input-item">

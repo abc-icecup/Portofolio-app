@@ -65,3 +65,62 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+// GET PROFILE
+export const getProfile = async (req, res) => {
+  try {
+
+    const user = await User.findByPk(req.user.id, {
+      attributes: ["id", "username", "email"],
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User tidak ditemukan",
+      });
+    }
+
+    res.status(200).json(user);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// UPDATE PROFILE
+export const updateProfile = async (req, res) => {
+  try {
+
+    const { username, email } = req.body;
+
+    const user = await User.findByPk(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User tidak ditemukan",
+      });
+    }
+
+    user.username = username;
+    user.email = email;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile berhasil diupdate",
+
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
