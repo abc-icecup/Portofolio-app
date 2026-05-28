@@ -48,12 +48,12 @@ function Projects() {
             </button>
         </div>
 
-        <div className="projects-grid">
+        <div className="projects-page-grid">
           {projectsData.map((project) => (
             <div className="project-card" key={project.id}>
               <img src={project.image} alt={project.title} />
 
-              <div className="overlay">
+              <div className="project-overlay">
                 <h3>{project.title}</h3>
                 <button className="details-btn">Details &gt;</button>
               </div>

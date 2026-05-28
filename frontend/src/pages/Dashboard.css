@@ -1,5 +1,6 @@
 .content {
-  padding: 30px;
+  padding: 15px 40px;
+  margin-top: 20px;
   font-family: 'Inter', sans-serif;
 }
 
@@ -74,13 +75,14 @@
   color: white; /* ini kunci biar jadi putih */
 }
 
-.projects-grid {
-  display: flex;
+.dashboard-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 310px);
   gap: 20px;
-  margin-bottom: 30px;
+  justify-content: flex-start; /* rata kiri */
 }
 
-.projects-grid img {
+.dashboard-projects-grid img {
   width: 310px;
   height: 314px;
   border-radius: 15px;
@@ -92,8 +94,34 @@
   transition: transform 0.3s ease;
 }
 
-.projects-grid img:hover {
+.dashboard-projects-grid img:hover {
   transform: scale(1.05);
+}
+
+.dashboard-project-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  
+  height: 314px; /* WAJIB biar ga gepeng */
+}
+
+/* Overlay */
+.dashboard-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  color: white;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.dashboard-overlay h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .skills {

@@ -65,12 +65,12 @@ export default function Dashboard() {
         {/* PROJECT */}
         <h2>Projects</h2>
 
-        <div className="projects-grid">
+        <div className="dashboard-projects-grid">
           {projects.map((img, i) => (
-            <div className="project-card" key={i}>
+            <div className="dashboard-project-card" key={i}>
               <img src={img} />
 
-              <div className="overlay">
+              <div className="dashboard-overlay">
                 <h3>Project {i + 1}</h3>
                 <button className="details-btn">
                   Details &gt;

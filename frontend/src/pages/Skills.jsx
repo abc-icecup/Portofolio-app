@@ -65,8 +65,8 @@ const Skills = () => {
   return (
     <NavigationLayout>
 
-      {/* Pembungkus Konten Utama Dashboard */}
-      <div className="content">
+      {/* Pembungkus Konten Utama Skills */}
+      <div className="skills-content">
         <div className="skills-container" style={{ padding: '0 0 40px 0' }}>
           
           <div className="skills-header">
@@ -101,8 +101,8 @@ const Skills = () => {
 
           {/* MODAL INPUT SKILL */}
           {showModal && (
-            <div className="modal-overlay">
-              <div className="modal-content">
+            <div className="skills-modal-overlay">
+              <div className="skills-modal-content">
                 <button onClick={() => setShowModal(false)} className="modal-close">
                   <span className="material-icons">close</span>
                 </button>
@@ -125,7 +125,7 @@ const Skills = () => {
                     type="text" 
                     value={skillName}
                     onChange={(e) => setSkillName(e.target.value)}
-                    placeholder="Canva"
+                    placeholder="Contoh : Canva"
                   />
                 </div>
 
@@ -139,8 +139,8 @@ const Skills = () => {
 
           {/* MODAL CONFIRM DELETE */}
           {showDeleteModal && (
-            <div className="modal-overlay">
-              <div className="modal-content" style={{maxWidth: '300px'}}>
+            <div className="skills-modal-overlay">
+              <div className="skills-modal-content" style={{maxWidth: '300px'}}>
                  <button onClick={() => setShowDeleteModal(false)} className="modal-close">
                   <span className="material-icons">close</span>
                 </button>

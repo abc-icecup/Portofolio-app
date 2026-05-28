@@ -1,5 +1,11 @@
 /* Skills.css */
 
+.skills-content {
+  padding: 15px 40px;
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
 .skills-container {
   position: relative;
   min-height: 100%;
@@ -103,7 +109,7 @@
 }
 
 /* MODAL STYLES */
-.modal-overlay {
+.skills-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
@@ -114,9 +120,9 @@
   z-index: 1000;
 }
 
-.modal-content {
+.skills-modal-content {
   background: white;
-  border-radius: 24px;
+  border-radius: 30px;
   width: 90%;
   max-width: 400px;
   padding: 40px;

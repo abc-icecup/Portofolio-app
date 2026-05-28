@@ -134,8 +134,8 @@ const Profile = () => {
   return (
     <NavigationLayout>
 
-      {/* Pembungkus Konten Utama Dashboard */}
-      <div className="content">
+      {/* Pembungkus Konten Utama Profile */}
+      <div className="profile-content">
         <div className="profile-container" style={{ padding: '0 0 40px 0' }}>
           
           <div className="profile-header">
@@ -210,7 +210,7 @@ const Profile = () => {
 
           {/* MODAL LOGOUT */}
           {showLogoutModal && (
-            <div className="modal-overlay">
+            <div className="profile-modal-overlay">
               <div className="logout-modal">
                 <button onClick={() => setShowLogoutModal(false)} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', color: '#ccc', cursor: 'pointer'}}>
                     <span className="material-icons" style={{fontSize: '20px'}}>close</span>

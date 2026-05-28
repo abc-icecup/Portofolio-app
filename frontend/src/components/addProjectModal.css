@@ -1,4 +1,4 @@
-.modal-overlay {
+.project-modal-overlay {
   position: fixed;
   inset: 0; /* lebih clean dari top/left/width/height */
 
@@ -14,11 +14,15 @@
   z-index: 9999; /* ⬅️ HARUS lebih tinggi dari topbar */
 }
 
-.modal-content {
+.project-modal-content {
   background: #f5f5f5;
   width: 600px;
-  height: 650px; /* ⬅️ penting */
-  overflow-y: auto; /* ⬅️ kalau konten panjang */
+  max-width: 90%;
+  height: 650px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
   padding: 30px;
   border-radius: 25px;
   position: relative;
@@ -38,33 +42,33 @@
 }
 
 /* TITLE */
-.modal-content h2 {
+.project-modal-content h2 {
   text-align: center;
   font-family: 'Playfair Display', serif;
   margin-bottom: 20px;
 }
 
 /* FORM */
-form {
+.project-modal-content form {
   display: flex;
   flex-direction: column;
 }
 
-label {
+.project-modal-content label {
   margin-top: 15px;
   margin-bottom: 5px;
   font-weight: 500;
 }
 
-/* INPUT */
-input, textarea {
+.project-modal-content input,
+.project-modal-content textarea {
   padding: 10px;
   border-radius: 12px;
   border: 1px solid #ccc;
   font-family: 'Inter', sans-serif;
 }
 
-textarea {
+.project-modal-content textarea {
   resize: none;
   height: 80px;
 }

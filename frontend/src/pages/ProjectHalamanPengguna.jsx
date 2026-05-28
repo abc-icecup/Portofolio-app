@@ -58,7 +58,7 @@ function ProjectHalamanPengguna1() {
             <div className="p1-tech-area">
               <h4>
                 <img src={techIcon} alt="Technology icon" />
-                Technology Used
+                Tools Used
               </h4>
 
               <div className="p1-tech-list">

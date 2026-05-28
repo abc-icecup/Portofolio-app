@@ -47,8 +47,8 @@ const Certificates = () => {
   return (
     <NavigationLayout>
 
-      {/* Pembungkus Konten Utama Dashboard */}
-      <div className="content">
+      {/* Pembungkus Konten Utama Certificates */}
+      <div className="certificates-content">
         <div className="certs-container" style={{ padding: '0 0 40px 0' }}>
           
           <div className="certs-header">
@@ -85,7 +85,7 @@ const Certificates = () => {
 
           {/* MODAL VIEW */}
           {showView && (
-            <div className="modal-overlay view-overlay">
+            <div className="certificates-modal-overlay view-overlay">
               <div className="view-container" style={{position: 'relative', textAlign: 'center'}}>
                 <button onClick={() => setShowView(false)} style={{position: 'absolute', top: '-50px', right: '0', background: 'none', border: 'none', color: 'white', cursor: 'pointer'}}>
                   <span className="material-icons" style={{fontSize: '40px'}}>close</span>
@@ -97,8 +97,8 @@ const Certificates = () => {
 
           {/* MODAL DELETE */}
           {showDelete && (
-            <div className="modal-overlay">
-              <div className="modal-content" style={{maxWidth: '320px'}}>
+            <div className="certificates-modal-overlay">
+              <div className="certificates-modal-content" style={{maxWidth: '320px'}}>
                 <button onClick={() => setShowDelete(false)} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
                     <span className="material-icons">close</span>
                 </button>
@@ -115,8 +115,8 @@ const Certificates = () => {
 
           {/* MODAL ADD */}
           {showAdd && (
-            <div className="modal-overlay">
-              <div className="modal-content">
+            <div className="certificates-modal-overlay">
+              <div className="certificates-modal-content">
                  <button onClick={() => {setShowAdd(false); setTempImg(null);}} style={{position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none', cursor: 'pointer'}}>
                     <span className="material-icons">close</span>
                  </button>

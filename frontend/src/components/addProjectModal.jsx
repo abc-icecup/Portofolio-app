@@ -44,8 +44,8 @@ function AddProjectModal({ onClose }) {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="project-modal-overlay">
+      <div className="project-modal-content">
         
         {/* CLOSE */}
         <button className="close-btn" onClick={onClose}>✕</button>
