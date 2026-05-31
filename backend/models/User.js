@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import Certificate from "./certificates.js";
 
 const User = sequelize.define("User", {
   username: {

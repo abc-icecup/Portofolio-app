@@ -2,11 +2,15 @@ import express from "express";
 import cors from "cors";
 import sequelize from "./config/database.js";
 import User from "./models/User.js";
+import "./models/index.js";
 import dotenv from "dotenv";
+import path from "path";
 
 //ROUTES
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
+import certificatesRoutes from "./routes/certificatesRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +22,11 @@ app.use(express.json());
 // ROUTES
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/profile", profileRoutes);
+app.use("/certificates", certificatesRoutes);
+
+//UPLOAD FILE
+app.use("/uploads", express.static("uploads"));
 
 //TEST API
 app.get("/", (req, res) => {

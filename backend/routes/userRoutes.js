@@ -6,18 +6,16 @@ import {
   getUsers,
   deleteUser,
   updateUser,
-  getProfile,
-  updateProfile,
 } from "../controllers/usersController.js";
 
 const router = express.Router();
 
 
 // GET PROFILE
-router.get("/profile", verifyToken, getProfile);
+// router.get("/profile", verifyToken, getProfile);
 
 // UPDATE PROFILE
-router.put("/profile", verifyToken, updateProfile);
+// router.put("/profile", verifyToken, updateProfile);
 
 // GET USERS
 router.get("/", verifyToken, getUsers);

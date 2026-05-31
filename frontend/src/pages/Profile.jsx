@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Profile.css';
+import { useNavigate } from "react-router-dom";
 
 // Integrasi Navigasi Kelompok
 import NavigationLayout from "../navigation/NavigationLayout";
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -17,6 +20,7 @@ const Profile = () => {
   const [sosmedList, setSosmedList] = useState(['']);
 
   const [profileImage, setProfileImage] = useState("https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg");
+  const [imageFile, setImageFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleInputChange = (e) => {
@@ -50,6 +54,10 @@ const Profile = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+
+      //SIMPAN file asli
+      setImageFile(file);
+
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
     }
@@ -65,35 +73,87 @@ const Profile = () => {
 
       const token = localStorage.getItem("token");
 
+      // =========================
+      // FORM DATA
+      // =========================
+
+      const formDataToSend = new FormData();
+
+      formDataToSend.append(
+        "username",
+        formData.username
+      );
+
+      formDataToSend.append(
+        "email",
+        formData.email
+      );
+
+      formDataToSend.append(
+        "bio",
+        formData.deskripsi
+      );
+
+      formDataToSend.append(
+        "socialLinks",
+        JSON.stringify(sosmedList)
+      );            
+
+      // jika ada file image
+      if (imageFile) {
+
+        formDataToSend.append(
+          "profile_image",
+          imageFile
+        );
+      }
+
+      // =========================
+      // FETCH
+      // =========================
+
       const response = await fetch(
-        "http://localhost:5000/users/profile",
+        "http://localhost:5000/profile",
         {
           method: "PUT",
 
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
 
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-          }),
+          body: formDataToSend,
         }
       );
 
       const data = await response.json();
 
       alert(data.message);
+      setImageFile(null);
 
       console.log(data);
 
     } catch (error) {
+
       console.log(error);
 
       alert("Gagal update profile");
     }
   };
+
+  const handleLogout = () => {
+
+    // hapus token
+    localStorage.removeItem("token");
+
+    // jika nanti ada data user lain
+    localStorage.removeItem("user");
+
+    // tutup modal
+    setShowLogoutModal(false);
+
+    // redirect ke landing page
+    navigate("/");
+  };  
 
   //USEEFFECT UNTUK GET DAN PUT DATABASE
   useEffect(() => {
@@ -105,7 +165,7 @@ const Profile = () => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/users/profile",
+          "http://localhost:5000/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -115,11 +175,36 @@ const Profile = () => {
 
         const data = await response.json();
 
-        setFormData((prev) => ({
-          ...prev,
-          username: data.username,
-          email: data.email,
-        }));
+        setFormData({
+          username: data.username || "",
+          email: data.email || "",
+          deskripsi: data.Profile?.bio || "",
+        });
+
+        // LINK SOCIAL MEDIA
+        if (
+          data.Profile?.SocialLinks &&
+          data.Profile.SocialLinks.length > 0
+        ) {
+
+          setSosmedList(
+            data.Profile.SocialLinks.map(
+              (item) => item.url
+            )
+          );
+
+        } else {
+
+          setSosmedList([""]);
+        }        
+
+        // FOTO PROFILE
+        if (data.Profile?.profile_image) {
+
+          setProfileImage(
+            `http://localhost:5000/${data.Profile.profile_image}`
+          );
+        }
 
       } catch (error) {
         console.log(error);
@@ -221,7 +306,7 @@ const Profile = () => {
                 <p>Anda yakin ingin Log Out dari akun ini??</p>
                 <div className="modal-btn-group">
                     <button onClick={() => setShowLogoutModal(false)} className="btn-modal-base btn-modal-cancel">Cancel</button>
-                    <button onClick={() => window.location.reload()} className="btn-modal-base btn-modal-confirm">Log Out</button>
+                    <button onClick={handleLogout} className="btn-modal-base btn-modal-confirm">Log Out</button>
                 </div>
               </div>
             </div>

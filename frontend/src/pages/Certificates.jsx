@@ -1,48 +1,143 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect} from 'react';
+import axios from 'axios';
 import './Certificates.css';
 
 // Integrasi Navigasi Kelompok
 import NavigationLayout from "../navigation/NavigationLayout";
 
 const Certificates = () => {
-  const [certs, setCerts] = useState([
-    { id: 1, img: 'https://i.pinimg.com/736x/bb/ae/da/bbaedab06b10a794c2840b4520b6c8c9.jpg' },
-    { id: 2, img: 'https://i.pinimg.com/736x/c7/44/16/c7441654eadbbbb15e497f1926eb1fcf.jpg' },
-    { id: 3, img: 'https://i.pinimg.com/736x/52/43/b8/5243b8a9639a6cf10bd5a61f637dc363.jpg' }
-  ]);
+  const [certs, setCerts] = useState([]);
 
   const [selectedCert, setSelectedCert] = useState(null);
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [tempImg, setTempImg] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
+
+  const fetchCertificates = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response = await axios.get(
+        "http://localhost:5000/certificates",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setCerts(response.data);
+
+    } catch (error) {
+
+      console.error(
+        "Gagal mengambil certificate:",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchCertificates();
+  }, []);
 
   const openView = (cert) => { setSelectedCert(cert); setShowView(true); };
   const openDelete = (cert) => { setSelectedCert(cert); setShowDelete(true); };
   
-  const confirmDelete = () => {
-    setCerts(certs.filter(c => c.id !== selectedCert.id));
-    setShowDelete(false);
+  const confirmDelete = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      await axios.delete(
+        `http://localhost:5000/certificates/${selectedCert.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      await fetchCertificates();
+
+      setShowDelete(false);
+
+    } catch (error) {
+
+      console.error(
+        "Gagal menghapus:",
+        error
+      );
+    }
   };
 
   const handleFileChange = (e) => {
+
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setTempImg(reader.result);
-      reader.readAsDataURL(file);
+
+    if (!file) return;
+
+    setSelectedFile(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setTempImg(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleSave = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "image",
+        selectedFile
+      );
+
+      await axios.post(
+        "http://localhost:5000/certificates",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type":
+              "multipart/form-data",
+          },
+        }
+      );
+
+      await fetchCertificates();
+
+      setTempImg(null);
+      setSelectedFile(null);
+      setShowAdd(false);
+
+    } catch (error) {
+
+      console.error(
+        "Upload gagal:",
+        error
+      );
     }
   };
 
-  const handleSave = () => {
-    if (tempImg) {
-      const newCert = { id: Date.now(), img: tempImg };
-      setCerts([newCert, ...certs]);
-      setTempImg(null);
-      setShowAdd(false);
-    }
-  };
 
   return (
     <NavigationLayout>
@@ -65,7 +160,7 @@ const Certificates = () => {
             {certs.map((cert) => (
               <div key={cert.id} className="cert-card">
                 <img 
-                  src={cert.img} 
+                  src={`http://localhost:5000/${cert.image}`} 
                   alt="Sertifikat" 
                   className="cert-img"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/500x350?text=Sertifikat'; }}
@@ -90,7 +185,7 @@ const Certificates = () => {
                 <button onClick={() => setShowView(false)} style={{position: 'absolute', top: '-50px', right: '0', background: 'none', border: 'none', color: 'white', cursor: 'pointer'}}>
                   <span className="material-icons" style={{fontSize: '40px'}}>close</span>
                 </button>
-                <img src={selectedCert?.img} alt="Full View" className="view-img" />
+                <img src={`http://localhost:5000/${selectedCert?.image}`} alt="Full View" className="view-img" />
               </div>
             </div>
           )}
