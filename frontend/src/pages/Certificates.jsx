@@ -156,6 +156,14 @@ const Certificates = () => {
             </button>
           </div>
 
+        {certs.length === 0 ? (
+
+          <div className="empty-certificates">
+            Anda belum menambahkan sertifikat
+          </div>
+
+        ) : (
+
           <div className="certs-grid">
             {certs.map((cert) => (
               <div key={cert.id} className="cert-card">
@@ -177,6 +185,7 @@ const Certificates = () => {
               </div>
             ))}
           </div>
+        )}
 
           {/* MODAL VIEW */}
           {showView && (

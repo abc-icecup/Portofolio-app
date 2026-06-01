@@ -2,6 +2,7 @@ import User from "./User.js";
 import Profile from "./profile.js";
 import SocialLink from "./SocialLink.js";
 import Certificate from "./certificates.js";
+import Skill from "./Skills.js"
 
 // RELATION
 
@@ -31,9 +32,18 @@ Certificate.belongsTo(User, {
   foreignKey: "user_id",
 });
 
+User.hasMany(Skill, {
+  foreignKey: "user_id",
+});
+
+Skill.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
 export {
   User,
   Profile,
   SocialLink,
   Certificate,
+  Skill,
 };

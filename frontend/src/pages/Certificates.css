@@ -117,6 +117,15 @@
   text-align: center;
 }
 
+.empty-certificates {
+  width: 100%;
+  text-align: center;
+  padding: 60px 20px;
+  color: #000;
+  font-size: 16px;
+  
+}
+
 /* KHUSUS VIEW MODAL */
 .view-overlay {
   background: rgba(0,0,0,0.85);

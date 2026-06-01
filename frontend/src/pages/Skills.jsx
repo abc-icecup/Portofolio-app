@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Skills.css";
 
 // Integrasi Navigasi Kelompok
@@ -6,61 +7,221 @@ import NavigationLayout from "../navigation/NavigationLayout";
 
 
 const Skills = () => {
-  const [skills, setSkills] = useState([
-    { id: 1, name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
-    { id: 2, name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { id: 3, name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-    { id: 4, name: 'Canva', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
-  ]);
-
+  const [skills, setSkills] = useState([]);
+  const [tools, setTools] = useState([]);    
+  
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [skillName, setSkillName] = useState('');
   const [skillIcon, setSkillIcon] = useState('');
   const [selectedId, setSelectedId] = useState(null);
+  const [category, setCategory] = useState("skill");
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleAddClick = () => {
     setIsEditMode(false);
-    setSkillName('');
-    setSkillIcon('');
+    setSkillName("");
+    setSkillIcon("");
+    setSelectedFile(null);
+    setCategory("skill");
+    setSelectedType(null);
     setShowModal(true);
   };
 
-  const handleEditClick = (skill) => {
+  const handleEditClick = (item, type) => {
     setIsEditMode(true);
-    setSkillName(skill.name);
-    setSkillIcon(skill.icon);
-    setSelectedId(skill.id);
+    setSkillName(item.name);
+    setSkillIcon(item.icon);
+    setSelectedId(item.id);
+    setSelectedType(type);
+    setCategory(type);
+    setSelectedFile(null);
     setShowModal(true);
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = (id, type) => {
     setSelectedId(id);
+    setSelectedType(type);
     setShowDeleteModal(true);
   };
 
-  const handleSave = () => {
-    if (isEditMode) {
-      const updatedSkills = skills.map(s => 
-        s.id === selectedId ? { ...s, name: skillName } : s
-      );
-      setSkills(updatedSkills);
-    } else {
-      const newSkill = {
-        id: Date.now(),
-        name: skillName,
-        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg'
-      };
-      setSkills([...skills, newSkill]);
-    }
-    setShowModal(false);
+  const handleFileChange = (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setSelectedFile(file);
+
+    setSkillIcon(
+      URL.createObjectURL(file)
+    );
   };
 
-  const confirmDelete = () => {
-    setSkills(skills.filter(s => s.id !== selectedId));
-    setShowDeleteModal(false);
+  const handleSave = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "name",
+        skillName
+      );
+
+      formData.append(
+        "category",
+        category
+      );
+
+      if (selectedFile) {
+
+        formData.append(
+          "icon",
+          selectedFile
+        );
+      }
+
+      // ===================
+      // EDIT
+      // ===================
+
+      if (isEditMode) {
+
+        await axios.put(
+
+          `http://localhost:5000/skills/${selectedId}`,
+
+          formData,
+
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+
+      }
+
+      // ===================
+      // ADD
+      // ===================
+
+      else {
+
+        await axios.post(
+
+          "http://localhost:5000/skills",
+
+          formData,
+
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      fetchSkills();
+
+      setShowModal(false);
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        error.response?.data?.message
+      );
+    }
   };
+
+  const confirmDelete = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      await axios.delete(
+
+        `http://localhost:5000/skills/${selectedId}`,
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
+
+      fetchSkills();
+
+      setShowDeleteModal(false);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+  };
+
+  const fetchSkills = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await axios.get(
+          "http://localhost:5000/skills",
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+
+      const allData =
+        response.data;
+
+      setSkills(
+        allData.filter(
+          item =>
+            item.category === "skill"
+        )
+      );
+
+      setTools(
+        allData.filter(
+          item =>
+            item.category === "tool"
+        )
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+  };
+
+  useEffect(() => {
+
+    fetchSkills();
+
+  }, []);
 
   return (
     <NavigationLayout>
@@ -75,28 +236,85 @@ const Skills = () => {
             </div>
             <button onClick={handleAddClick} className="btn-add-skill">
               <span className="material-icons">add</span>
-              <span>Add Skills</span>
+              <span>Add Skills / Tools</span>
             </button>
           </div>
 
+        {/* BAGIAN SKILL */}
+        {skills.length === 0 ? (
+
+          <p className="empty-message">
+            Anda belum menambahkan Skill
+          </p>
+
+        ) : (
           <div className="skills-grid">
             {skills.map((skill) => (
               <div key={skill.id} className="skill-card">
                 <div className="skill-icon-wrapper">
-                  <img src={skill.icon} alt={skill.name} />
+                  <img
+                    src={`http://localhost:5000/${skill.icon}`}
+                    alt={skill.name}
+                  />
                 </div>
                 <span className="skill-name">{skill.name}</span>
                 
                 <div className="skill-actions">
-                  <button onClick={() => handleEditClick(skill)} className="action-btn">
+                  <button onClick={() => handleEditClick(skill, "skill")} className="action-btn">
                     <span className="material-icons">edit</span>
                   </button>
-                  <button onClick={() => handleDeleteClick(skill.id)} className="action-btn">
+                  <button onClick={() => handleDeleteClick(skill.id, "skill")} className="action-btn">
                     <span className="material-icons">close</span>
                   </button>
                 </div>
               </div>
             ))}
+          </div>
+        )}  
+
+          {/* SECTION TOOLS */}
+          <div className="tools-section">
+
+            <div className="skills-header section-spacing">
+              <div>
+                <h2>Your Tools</h2>
+              </div>
+            </div>
+
+          {tools.length === 0 ? (
+
+            <p className="empty-message">
+              Anda belum menambahkan Tool
+            </p>
+
+          ) : (
+            <div className="skills-grid">
+              {tools.map((tool) => (
+                <div key={tool.id} className="skill-card">
+                  <div className="skill-icon-wrapper">
+                    <img
+                      src={`http://localhost:5000/${tool.icon}`}
+                      alt={tool.name}
+                    />
+                  </div>
+
+                  <span className="skill-name">
+                    {tool.name}
+                  </span>
+
+                  <div className="skill-actions">
+                    <button onClick={() => handleEditClick(tool, "tool")} className="action-btn">
+                      <span className="material-icons">edit</span>
+                    </button>
+
+                    <button onClick={() => handleDeleteClick(tool.id, "tool")} className="action-btn">
+                      <span className="material-icons">close</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           </div>
 
           {/* MODAL INPUT SKILL */}
@@ -111,13 +329,28 @@ const Skills = () => {
                   {isEditMode ? 'Edit Skill Anda' : 'Tambahkan Skill Anda'}
                 </h3>
 
-                <div className="preview-circle">
+                <input
+                  type="file"
+                  id="icon-upload"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+
+                <label htmlFor="icon-upload" className="preview-circle">
                   {skillIcon || isEditMode ? (
-                    <img src={skillIcon} alt="preview" />
+                    <img
+                      src={
+                        skillIcon.startsWith("blob:")
+                          ? skillIcon
+                          : `http://localhost:5000/${skillIcon}`
+                      }
+                      alt="preview"
+                    />
                   ) : (
                     <span className="material-icons" style={{color: '#ccc', fontSize: '40px'}}>image</span>
                   )}
-                </div>
+                </label>
 
                 <div className="input-group">
                   <label>Nama Skill/Tools</label>
@@ -127,6 +360,18 @@ const Skills = () => {
                     onChange={(e) => setSkillName(e.target.value)}
                     placeholder="Contoh : Canva"
                   />
+                </div>
+
+                <div className="input-group">
+                  <label>Kategori</label>
+
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option value="skill">Skill</option>
+                    <option value="tool">Tool</option>
+                  </select>
                 </div>
 
                 <div className="modal-footer">
