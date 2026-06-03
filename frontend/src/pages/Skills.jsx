@@ -4,6 +4,8 @@ import "./Skills.css";
 
 // Integrasi Navigasi Kelompok
 import NavigationLayout from "../navigation/NavigationLayout";
+// Import fitur "Add Skills/Tools"
+import AddSkillModal from "../components/addSkillModal";
 
 
 const Skills = () => {
@@ -317,70 +319,18 @@ const Skills = () => {
           )}
           </div>
 
-          {/* MODAL INPUT SKILL */}
-          {showModal && (
-            <div className="skills-modal-overlay">
-              <div className="skills-modal-content">
-                <button onClick={() => setShowModal(false)} className="modal-close">
-                  <span className="material-icons">close</span>
-                </button>
-
-                <h3 className="modal-title">
-                  {isEditMode ? 'Edit Skill Anda' : 'Tambahkan Skill Anda'}
-                </h3>
-
-                <input
-                  type="file"
-                  id="icon-upload"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
-
-                <label htmlFor="icon-upload" className="preview-circle">
-                  {skillIcon || isEditMode ? (
-                    <img
-                      src={
-                        skillIcon.startsWith("blob:")
-                          ? skillIcon
-                          : `http://localhost:5000/${skillIcon}`
-                      }
-                      alt="preview"
-                    />
-                  ) : (
-                    <span className="material-icons" style={{color: '#ccc', fontSize: '40px'}}>image</span>
-                  )}
-                </label>
-
-                <div className="input-group">
-                  <label>Nama Skill/Tools</label>
-                  <input 
-                    type="text" 
-                    value={skillName}
-                    onChange={(e) => setSkillName(e.target.value)}
-                    placeholder="Contoh : Canva"
-                  />
-                </div>
-
-                <div className="input-group">
-                  <label>Kategori</label>
-
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option value="skill">Skill</option>
-                    <option value="tool">Tool</option>
-                  </select>
-                </div>
-
-                <div className="modal-footer">
-                  <button onClick={() => setShowModal(false)} className="btn-cancel">Batal</button>
-                  <button onClick={handleSave} className="btn-save">Simpan</button>
-                </div>
-              </div>
-            </div>
-          )}
+          <AddSkillModal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            onSave={handleSave}
+            isEditMode={isEditMode}
+            skillName={skillName}
+            setSkillName={setSkillName}
+            skillIcon={skillIcon}
+            category={category}
+            setCategory={setCategory}
+            handleFileChange={handleFileChange}
+          />          
 
           {/* MODAL CONFIRM DELETE */}
           {showDeleteModal && (
