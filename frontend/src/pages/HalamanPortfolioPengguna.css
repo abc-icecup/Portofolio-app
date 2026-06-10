@@ -208,6 +208,7 @@
 /* ================= SECTION TITLES ================= */
 
 .pf-skills h3,
+.pf-tools h3,
 .pf-projects h3,
 .pf-certificates h3,
 .pf-contact h3 {
@@ -253,6 +254,46 @@
 }
 
 .pf-skill-card span {
+  color: var(--color-black);
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ================= TOOLS (BARU) ================= */
+
+.pf-tools {
+  margin-bottom: 32px;
+}
+
+.pf-tool-list {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.pf-tool-card {
+  min-width: 128px;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body, "Inter", sans-serif);
+}
+
+.pf-tool-card img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.pf-tool-card span {
   color: var(--color-black);
   font-family: var(--font-body, "Inter", sans-serif);
   font-size: 14px;
@@ -444,7 +485,7 @@
   -webkit-filter: none !important;
 }
 
-/* ================= CERTIFICATES ================= */
+/* ================= CERTIFICATES (SUDAH SEJAJAR LURUS) ================= */
 
 .pf-certificates {
   margin-bottom: 44px;
@@ -452,37 +493,34 @@
 
 .pf-certificate-list {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 327.17px);
-  gap: 36px;
+  display: grid !important; 
+  grid-template-columns: repeat(3, 327.17px) !important; 
+  gap: 36px !important; 
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
-  width: 327.17px !important;
-  height: auto !important;
-  background: transparent !important;
+  width: 327.17px !important; 
+  height: 328px !important; 
+  background: #c9c9c9 !important; 
+  border-radius: 10px !important; 
   border: none !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important; 
   padding: 0 !important;
   margin: 0 !important;
-  overflow: visible !important;
-  line-height: 0 !important;
-  border-radius: 0 !important;
+  overflow: hidden !important;
   cursor: pointer !important;
   display: flex !important;
-  align-items: flex-start !important;
-  justify-content: flex-start !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:hover {
   transform: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+  background: #c9c9c9 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card::before,
@@ -494,9 +532,9 @@
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card img {
   display: block !important;
   width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-  object-position: center top !important;
+  height: 100% !important;
+  object-fit: contain !important; 
+  object-position: center !important;
   background: transparent !important;
   border: none !important;
   outline: none !important;
@@ -508,16 +546,25 @@
   margin: 0 !important;
 }
 
-/* Sertifikat portrait dibuat lebih besar dan sejajar dengan kolom project */
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:first-child img {
-  max-width: 327.17px !important;
-  max-height: none !important;
+.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:first-child img,
+.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:nth-child(2) img {
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
 
-/* Sertifikat landscape dibuat lebih besar dan sejajar dengan kolom project */
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:nth-child(2) img {
-  max-width: 327.17px !important;
-  max-height: none !important;
+/* ================= POPUP MODAL ================= */
+
+.pf-page img[alt="Certificate 1"],
+.pf-page img[alt="Certificate 2"],
+.CertificatePortrait img,
+.CertificateLandscape img,
+[class*="modal"] img, 
+[class*="popup"] img {
+  max-width: 75vw !important;  
+  max-height: 75vh !important; 
+  object-fit: contain !important; 
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35); 
+  border-radius: 12px !important; 
 }
 
 /* ================= CONTACT ================= */
@@ -599,12 +646,8 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: repeat(3, 327.17px);
-    gap: 28px;
-  }
-
-  .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
-    width: 327.17px !important;
+    grid-template-columns: repeat(3, 327.17px) !important;
+    gap: 28px !important;
   }
 }
 
@@ -628,7 +671,7 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: repeat(2, 327.17px);
+    grid-template-columns: repeat(2, 327.17px) !important;
     justify-content: center;
   }
 }
@@ -730,14 +773,14 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     justify-items: center;
-    gap: 28px;
+    gap: 20px !important;
   }
 
   .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
     width: 327.17px !important;
-    justify-content: center !important;
+    height: 328px !important;
   }
 }
 
@@ -817,7 +860,8 @@
     height: 160px;
   }
 
-  .pf-skill-card {
+  .pf-skill-card,
+  .pf-tool-card {
     width: 100%;
   }
 
@@ -858,20 +902,20 @@
   }
 
   .pf-certificate-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     justify-items: center;
-    gap: 24px;
+    gap: 20px !important;
   }
 
   .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
     width: 100% !important;
     max-width: 327.17px !important;
-    justify-content: center !important;
+    height: 328px !important;
   }
 
   .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card img {
     width: 100% !important;
-    max-width: 280px !important;
+    height: 100% !important;
   }
 
   .pf-contact-item {

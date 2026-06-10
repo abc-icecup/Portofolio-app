@@ -209,6 +209,7 @@
 /* ================= SECTION TITLE ================= */
 
 .gt-skills h3,
+.gt-tools h3,
 .gt-projects h3,
 .gt-certificates h3,
 .gt-contact h3 {
@@ -255,6 +256,47 @@
 }
 
 .gt-skill-card span {
+  color: var(--color-black);
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ================= TOOLS (BARU) ================= */
+
+.gt-tools {
+  margin-bottom: 32px;
+}
+
+.gt-tool-list {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gt-tool-card {
+  min-width: 128px;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body, "Inter", sans-serif);
+  box-sizing: border-box;
+}
+
+.gt-tool-card img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.gt-tool-card span {
   color: var(--color-black);
   font-family: var(--font-body, "Inter", sans-serif);
   font-size: 14px;
@@ -446,7 +488,7 @@
   -webkit-filter: none !important;
 }
 
-/* ================= CERTIFICATES ================= */
+/* ================= CERTIFICATES (DIPERBAIKI AGAR LURUS & SYNC) ================= */
 
 .gt-certificates {
   margin-bottom: 44px;
@@ -454,37 +496,34 @@
 
 .gt-certificate-list {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 327.17px);
-  gap: 36px;
+  display: grid !important;                               /* Berubah ke Grid agar sejajar dengan project */
+  grid-template-columns: repeat(3, 327.17px) !important;  /* Ukuran kolom disamakan dengan project */
+  gap: 36px !important;                                   /* Jarak/gap disamakan dengan project */
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
-  width: 327.17px !important;
-  height: auto !important;
-  background: transparent !important;
+  width: 327.17px !important;                             /* Dikunci mengikuti lebar project */
+  height: 328px !important;                               /* Dikunci mengikuti tinggi project */
+  background: #c9c9c9 !important;                         /* Dasar warna abu-abu box */
+  border-radius: 10px !important;                         /* Lekukan ujung disamakan dengan project */
   border: none !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;      /* Efek bayangan disamakan dengan project */
   padding: 0 !important;
   margin: 0 !important;
-  overflow: visible !important;
-  line-height: 0 !important;
-  border-radius: 0 !important;
+  overflow: hidden !important;
   cursor: pointer !important;
   display: flex !important;
-  align-items: flex-start !important;
-  justify-content: flex-start !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:hover {
   transform: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+  background: #c9c9c9 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
 }
 
 .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card::before,
@@ -496,9 +535,9 @@
 .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card img {
   display: block !important;
   width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-  object-position: center top !important;
+  height: 100% !important;
+  object-fit: contain !important;                         /* Mencegah gambar sertifikat gepeng */
+  object-position: center !important;
   background: transparent !important;
   border: none !important;
   outline: none !important;
@@ -510,14 +549,25 @@
   margin: 0 !important;
 }
 
-.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:first-child img {
-  max-width: 327.17px !important;
-  max-height: none !important;
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:first-child img,
+.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:nth-child(2) img {
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
 
-.gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card:nth-child(2) img {
-  max-width: 327.17px !important;
-  max-height: none !important;
+/* ================= POPUP MODAL (BATAS UKURAN POPUP MODAL) ================= */
+
+.gt-page img[alt="Certificate 1"],
+.gt-page img[alt="Certificate 2"],
+.CertificatePortrait img,
+.CertificateLandscape img,
+[class*="modal"] img, 
+[class*="popup"] img {
+  max-width: 75vw !important;  
+  max-height: 75vh !important; 
+  object-fit: contain !important; 
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35); 
+  border-radius: 12px !important; 
 }
 
 /* ================= CONTACT ================= */
@@ -599,12 +649,8 @@
   }
 
   .gt-certificate-list {
-    grid-template-columns: repeat(3, 327.17px);
-    gap: 28px;
-  }
-
-  .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
-    width: 327.17px !important;
+    grid-template-columns: repeat(3, 327.17px) !important;
+    gap: 28px !important;
   }
 }
 
@@ -628,7 +674,7 @@
   }
 
   .gt-certificate-list {
-    grid-template-columns: repeat(2, 327.17px);
+    grid-template-columns: repeat(2, 327.17px) !important;
     justify-content: center;
   }
 }
@@ -738,14 +784,14 @@
   }
 
   .gt-certificate-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     justify-items: center;
-    gap: 28px;
+    gap: 20px !important;
   }
 
   .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
     width: 327.17px !important;
-    justify-content: center !important;
+    height: 328px !important;
   }
 
   .gt-contact {
@@ -825,7 +871,8 @@
     height: 160px;
   }
 
-  .gt-skill-card {
+  .gt-skill-card,
+  .gt-tool-card {
     width: 100%;
   }
 
@@ -867,20 +914,20 @@
   }
 
   .gt-certificate-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     justify-items: center;
-    gap: 24px;
+    gap: 20px !important;
   }
 
   .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card {
     width: 100% !important;
     max-width: 327.17px !important;
-    justify-content: center !important;
+    height: 328px !important;
   }
 
   .gt-page .gt-card .gt-certificates .gt-certificate-list .gt-certificate-card img {
     width: 100% !important;
-    max-width: 280px !important;
+    height: 100% !important;
   }
 
   .gt-contact-item {

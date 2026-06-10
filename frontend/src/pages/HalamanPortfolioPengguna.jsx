@@ -70,6 +70,7 @@ function HalamanPortfolioPengguna() {
             </div>
           </section>
 
+          {/* ================= SECTION SKILLS ================= */}
           <section className="pf-skills">
             <h3>Skills</h3>
 
@@ -96,6 +97,20 @@ function HalamanPortfolioPengguna() {
             </div>
           </section>
 
+          {/* ================= SECTION TOOLS ================= */}
+          <section className="pf-tools">
+            <h3>Tools</h3>
+
+            <div className="pf-tool-list">
+              {/* Hanya menampilkan 1 contoh tool saja yaitu Canva */}
+              <div className="pf-tool-card">
+                <img src={canvaIcon} alt="Canva" />
+                <span>Canva</span>
+              </div>
+            </div>
+          </section>
+
+          {/* ================= SECTION PROJECTS ================= */}
           <section className="pf-projects">
             <h3>Projects</h3>
 
@@ -144,6 +159,7 @@ function HalamanPortfolioPengguna() {
             </div>
           </section>
 
+          {/* ================= SECTION CERTIFICATES ================= */}
           <section className="pf-certificates">
             <h3>Certificates</h3>
 
@@ -166,6 +182,7 @@ function HalamanPortfolioPengguna() {
             </div>
           </section>
 
+          {/* ================= SECTION CONTACT ================= */}
           <section className="pf-contact">
             <h3>Contact</h3>
 
