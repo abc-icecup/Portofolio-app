@@ -1,0 +1,49 @@
+name: Node.js CI (Automated Regression Testing)
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: myporto_db
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Install Dependencies
+      run: |
+        cd backend
+        npm install
+
+    - name: Run Automated Regression Test with Coverage
+      env:
+        NODE_ENV: test
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSWORD: ""
+        DB_NAME: myporto_db
+        PORT: 5000
+        NODE_OPTIONS: "--experimental-vm-modules"
+      run: |
+        cd backend
+        npx jest tests/skills.test.js --coverage --runInBand --forceExit
