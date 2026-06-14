@@ -12,6 +12,7 @@ import userRoutes from "./routes/userRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import certificatesRoutes from "./routes/certificatesRoutes.js";
 import skillsRoutes from "./routes/skillsRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/users", userRoutes);
 app.use("/profile", profileRoutes);
 app.use("/certificates", certificatesRoutes);
 app.use("/skills", skillsRoutes);
+app.use("/projects", projectRoutes);
 
 //UPLOAD FILE
 app.use("/uploads", express.static("uploads"));

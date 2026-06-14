@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Profile.css';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // Integrasi Navigasi Kelompok
 import NavigationLayout from "../navigation/NavigationLayout";
@@ -136,7 +137,7 @@ const Profile = () => {
 
       console.log(error);
 
-      alert("Gagal update profile");
+      toast.error("Gagal update profile");
     }
   };
 
