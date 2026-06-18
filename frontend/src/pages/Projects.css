@@ -61,6 +61,7 @@
   overflow: hidden;
   background: white;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
   
   height: 314px; /* WAJIB biar ga gepeng */
 }
@@ -92,7 +93,7 @@
   background: rgba(255,255,255,0.3);
   border: none;
   padding: 6px 12px;
-  border-radius: 10px;
+  border-radius: 6px;
   color: white;
   cursor: pointer;
   font-size: 12px;

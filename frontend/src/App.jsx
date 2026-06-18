@@ -19,7 +19,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
 // ===== PROJECT DETAIL =====
-import ProjectHalamanPengguna from "./pages/ProjectHalamanPengguna";
+import ProjectDetails from "./pages/ProjectDetails";
 import ProjectHalamanTamu from "./pages/ProjectHalamanTamu";
 
 function App() {
@@ -48,15 +48,11 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
 
         {/* ===== PROJECT PENGGUNA ===== */}
-        <Route path="/project-detail" element={<ProjectHalamanPengguna />} />
-        <Route
+        <Route path="/projects/:id" element={<ProjectDetails />} />
+        {/* <Route
           path="/project-halaman-pengguna-1"
           element={<ProjectHalamanPengguna />}
-        />
-        <Route
-          path="/project-halaman-pengguna-2"
-          element={<ProjectHalamanPengguna />}
-        />
+        /> */}
 
         {/* ===== PROJECT TAMU ===== */}
         <Route

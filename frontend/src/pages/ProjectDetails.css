@@ -119,7 +119,7 @@
 
 .p1-main {
   width: min(1120px, 92%);
-  margin: 36px auto 60px;
+  margin: 26px auto 60px;
   font-family: var(--font-body, "Inter", sans-serif);
 }
 

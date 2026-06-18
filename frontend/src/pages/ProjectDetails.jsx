@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./ProjectHalamanPengguna.css";
+import "./ProjectDetails.css";
 
 import project1 from "../assets/images/project1.png";
 import logo from "../assets/images/logo_my_porto.svg";
@@ -8,7 +8,7 @@ import iconSource from "../assets/images/ikon_source.png";
 import techIcon from "../assets/images/ikon_underline.png";
 import codeIcon from "../assets/images/ikon_code.svg";
 
-function ProjectHalamanPengguna1() {
+function ProjectDetails() {
   return (
     <div className="p1-page">
       <header className="p1-navbar">
@@ -85,4 +85,4 @@ function ProjectHalamanPengguna1() {
   );
 }
 
-export default ProjectHalamanPengguna1;
+export default ProjectDetails;

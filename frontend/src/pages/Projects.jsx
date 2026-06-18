@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavigationLayout from "../navigation/NavigationLayout";
 import AddProjectModal from "../components/AddProjectModal";
 import "./Projects.css";
@@ -31,6 +32,7 @@ const projectsData = [
 ];
 
 function Projects() {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -50,7 +52,7 @@ function Projects() {
 
         <div className="projects-page-grid">
           {projectsData.map((project) => (
-            <div className="project-card" key={project.id}>
+            <div className="project-card" key={project.id} onClick={() => navigate(`/projects/${project.id}`)}>
               <img src={project.image} alt={project.title} />
 
               <div className="project-overlay">
@@ -59,8 +61,23 @@ function Projects() {
               </div>
 
               <div className="card-actions">
-                <button className="edit-btn">✏️</button>
-                <button className="delete-btn">🗑️</button>
+                <button
+                  className="edit-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    console.log("edit");
+                  }}
+                >✏️</button>
+                
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    console.log("delete");
+                  }}
+                >🗑️</button>
               </div>
             </div>
           ))}
