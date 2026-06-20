@@ -12,10 +12,35 @@ import p3 from "../assets/project3.png";
 import c1 from "../assets/cert1.jpg";
 import c2 from "../assets/cert2.jpg";
 
+import figmaIcon from "../assets/images/ikon_figma.png";
+import reactIcon from "../assets/images/ikon_react.png";
+import nodeIcon from "../assets/images/ikon_nodejs.png";
+import canvaIcon from "../assets/images/ikon_canva.png";
+
 export default function Dashboard() {
   const projects = [p1, p2, p3];
   const certificates = [c1, c2];
-  const skills = ["Figma", "React", "Node.js", "Canva"];
+  const skills = [
+    {
+      name: "Figma",
+      icon: figmaIcon,
+    },
+    {
+      name: "React",
+      icon: reactIcon,
+    },
+    {
+      name: "Node.Js",
+      icon: nodeIcon,
+    },
+  ];
+
+  const tools = [
+    {
+      name: "Canva",
+      icon: canvaIcon,
+    },
+  ];
 
   return (
     <NavigationLayout>
@@ -53,7 +78,7 @@ export default function Dashboard() {
           <div className="card">
             <div className="card-text">
               <p>Total Skills</p>
-              <h2>{skills.length}</h2>
+              <h2>{skills.length + tools.length}</h2>
             </div>
 
             <div className="card-icon">
@@ -83,9 +108,23 @@ export default function Dashboard() {
         {/* SKILLS */}
         <h2>Skills</h2>
 
-        <div className="skills">
+        <div className="skills-grid">
           {skills.map((skill, i) => (
-            <span key={i}>{skill}</span>
+            <div className="skill-chip" key={i}>
+              <img src={skill.icon} alt={skill.name} />
+              <span>{skill.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <h2>Tools</h2>
+
+        <div className="skills-grid">
+          {tools.map((tool, i) => (
+            <div className="skill-chip" key={i}>
+              <img src={tool.icon} alt={tool.name} />
+              <span>{tool.name}</span>
+            </div>
           ))}
         </div>
 

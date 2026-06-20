@@ -1,66 +1,122 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationLayout from "../navigation/NavigationLayout";
 import AddProjectModal from "../components/AddProjectModal";
 import "./Projects.css";
 
-import p1 from "../assets/project1.png";
-import p2 from "../assets/project2.png";
-import p3 from "../assets/project3.png";
 
-const projectsData = [
-  {
-    id: 1,
-    title: "Website E-Commerce Fashion (Frontend)",
-    image: p1,
-  },
-  {
-    id: 2,
-    title: "UI/UX Design Aplikasi Mobile Belajar Online",
-    image: p2,
-  },
-  {
-    id: 3,
-    title: "Poster Promosi Event Seminar Teknologi",
-    image: p3,
-  },
-  {
-    id: 4,
-    title: "Website E-Commerce Fashion (Frontend)",
-    image: p1,
-  },
-];
 
 function Projects() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const fetchProjects =
+      async () => {
+
+        try {
+
+          const token =
+            localStorage.getItem("token");
+
+          const response =
+            await fetch(
+              "http://localhost:5000/projects",
+              {
+                headers: {
+                  Authorization:
+                    `Bearer ${token}`,
+                },
+              }
+            );
+
+          const data =
+            await response.json();
+
+          setProjects(data);
+
+        } catch (error) {
+
+          console.error(
+            "Gagal mengambil projects:",
+            error
+          );
+
+        } finally {
+
+          setLoading(false);
+
+        }
+      };
+
+    fetchProjects();
+
+  }, []);
+
+  if (loading) {
+    return (
+      <NavigationLayout>
+        <div style={{ padding: "40px" }}>
+          Loading...
+        </div>
+      </NavigationLayout>
+    );
+  }
 
   return (
     <NavigationLayout>
 
       <div className="projects-container">
         <div className="projects-header">
+
           <h1>Your Projects</h1>
-          
-            <button
-              className="add-btn"
-              onClick={() => setShowModal(true)}
-            >
-              + Add Project
-            </button>
+
+          <button
+            className="add-btn"
+            onClick={() => setShowModal(true)}
+          >
+            + Add Project
+          </button>
+
         </div>
 
+        {showModal && (
+          <AddProjectModal
+            onClose={() => setShowModal(false)}
+          />
+        )}
+
         <div className="projects-page-grid">
-          {projectsData.map((project) => (
-            <div className="project-card" key={project.id} onClick={() => navigate(`/projects/${project.id}`)}>
-              <img src={project.image} alt={project.title} />
+
+          {projects.map((project) => (
+            <div
+              className="project-card"
+              key={project.id}
+              onClick={() =>
+                navigate(`/projects/${project.id}`)
+              }
+            >
+
+              <img
+                src={project.thumbnail}
+                alt={project.name}
+              />
 
               <div className="project-overlay">
-                <h3>{project.title}</h3>
-                <button className="details-btn">Details &gt;</button>
+
+                <h3>{project.name}</h3>
+
+                <button className="details-btn">
+                  Details &gt;
+                </button>
+
               </div>
 
               <div className="card-actions">
+
                 <button
                   className="edit-btn"
                   onClick={(e) => {
@@ -68,8 +124,10 @@ function Projects() {
 
                     console.log("edit");
                   }}
-                >✏️</button>
-                
+                >
+                  ✏️
+                </button>
+
                 <button
                   className="delete-btn"
                   onClick={(e) => {
@@ -77,17 +135,26 @@ function Projects() {
 
                     console.log("delete");
                   }}
-                >🗑️</button>
+                >
+                  🗑️
+                </button>
+
               </div>
+
             </div>
           ))}
-        </div>
-      </div>
 
-      {/* MODAL (INI YANG PENTING) */}
-      {showModal && (
-        <AddProjectModal onClose={() => setShowModal(false)} />
-      )}
+          {projects.length === 0 && (
+            <div className="empty-projects">
+              Anda belum memiliki project.
+              <br />
+              Klik "Add Project" untuk menambahkan project pertama.
+            </div>
+          )}
+
+        </div>        
+
+      </div>
 
     </NavigationLayout>
   );

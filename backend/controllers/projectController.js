@@ -134,3 +134,62 @@ export const addProject = async (
 
   }
 };
+
+export const getProjects = async (
+  req,
+  res
+) => {
+  try {
+
+    const projects =
+      await Project.findAll({
+
+        where: {
+          user_id: req.user.id,
+        },
+
+        include: [
+          {
+            model: ProjectImage,
+            as: "images",
+
+            attributes: [
+              "image",
+            ],
+          },
+        ],
+
+        order: [
+          ["createdAt", "DESC"],
+        ],
+      });
+
+    const formattedProjects =
+      projects.map((project) => ({
+
+        id: project.id,
+
+        name: project.name,
+
+        thumbnail:
+          project.images.length > 0
+            ? `${req.protocol}://${req.get(
+                "host"
+              )}/uploads/projects/${
+                project.images[0].image
+              }`
+            : null,
+      }));
+
+    return res.status(200).json(
+      formattedProjects
+    );
+
+  } catch (error) {
+
+    return res.status(500).json({
+      message: error.message,
+    });
+
+  }
+};

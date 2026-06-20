@@ -54,6 +54,7 @@ Project.belongsTo(User, {
 
 Project.hasMany(ProjectImage, {
   foreignKey: "project_id",
+  as: "images",
   onDelete: "CASCADE",
 });
 
