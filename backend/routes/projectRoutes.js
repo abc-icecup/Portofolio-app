@@ -7,6 +7,9 @@ import uploadProject from "../middleware/uploadProjects.js";
 import {
   addProject,
   getProjects,
+  getProjectDetail,
+  deleteProject,
+  updateProject,
 } from "../controllers/projectController.js";
 
 const router = express.Router();
@@ -17,6 +20,12 @@ router.get(
   getProjects
 );
 
+router.get(
+  "/:id",
+  verifyToken,
+  getProjectDetail
+);
+
 router.post(
   "/",
   verifyToken,
@@ -25,6 +34,22 @@ router.post(
     5
   ),
   addProject
+);
+
+router.delete(
+  "/:id",
+  verifyToken,
+  deleteProject
+);
+
+router.put(
+  "/:id",
+  verifyToken,
+  uploadProject.array(
+    "images",
+    5
+  ),
+  updateProject
 );
 
 export default router;

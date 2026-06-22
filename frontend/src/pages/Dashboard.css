@@ -40,12 +40,19 @@
   
   justify-content: space-between;
   align-items: center;
-
+  cursor: pointer;
+  transition: transform 0.2s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.card:hover {
+  transform: translateY(-3px);
 }
 
 /* TEXT */
 .card-text p {
+  cursor: pointer;
+  transition: transform 0.2s ease;
   margin: 0;
   font-size: 14px;
   color: #666;
@@ -54,6 +61,8 @@
 .card-text h2 {
   margin: 5px 0 0;
   font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 /* ICON BOX */
@@ -182,4 +191,9 @@
   object-fit: contain;
   background: #c9c9c9;
   border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.cert img:hover {
+  transform: scale(1.05);
 }

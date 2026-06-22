@@ -4,7 +4,7 @@ import "./AddProjectModal.css";
 import AddSkillModal from "./AddSkillModal";
 import { toast } from "react-toastify";
 
-function AddProjectModal({ onClose }) {
+function AddProjectModal({ onClose, onProjectAdded, editingProject, }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState([]);
   // const [preview, setPreview] = useState(null);
@@ -22,10 +22,54 @@ function AddProjectModal({ onClose }) {
   const [userSkills, setUserSkills] = useState([]);
   const [userTools, setUserTools] = useState([]);
   const [skillFile, setSkillFile] = useState(null);
+  // const isEditMode = !!editingProject;
 
   useEffect(() => {
     fetchSkills();
   }, []);
+
+  useEffect(() => {
+
+    if (!editingProject)
+      return;
+
+    setName(
+      editingProject.name || ""
+    );
+
+    setDesc(
+      editingProject.description || ""
+    );
+
+    setLinks(
+      editingProject.links?.length
+        ? editingProject.links
+        : [""]
+    );
+
+    setSelectedItems(
+
+      editingProject.skills?.map(
+        (skill) => skill.id
+      ) || []
+
+    );
+
+    setImages(
+
+      editingProject.images?.map(
+        (image) => ({
+
+          preview: image,
+
+          existing: true,
+
+        })
+      ) || []
+
+    );
+
+  }, [editingProject]);  
 
   const fetchSkills = async () => {
 
@@ -383,28 +427,63 @@ function AddProjectModal({ onClose }) {
       );
 
       images.forEach((img) => {
-        formData.append(
-          "images",
-          img.file
-        );
+
+        if (!img.existing) {
+
+          formData.append(
+            "images",
+            img.file
+          );
+
+        }
+
       });
 
-      await axios.post(
-        "http://localhost:5000/projects",
-        formData,
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`,
-            "Content-Type":
-              "multipart/form-data",
-          },
-        }
-      );
+      if (editingProject) {
 
-      toast.success(
-        "Project berhasil ditambahkan"
-      );
+        await axios.put(
+          `http://localhost:5000/projects/${editingProject.id}`,
+          formData,
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+              "Content-Type":
+                "multipart/form-data",
+            },
+          }
+        );
+
+        toast.success(
+          "Project berhasil diperbarui"
+        );
+
+      } else {
+
+        await axios.post(
+          "http://localhost:5000/projects",
+          formData,
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+              "Content-Type":
+                "multipart/form-data",
+            },
+          }
+        );
+
+        toast.success(
+          "Project berhasil ditambahkan"
+        );
+
+      }
+
+      // refresh data project
+      if (onProjectAdded) {
+        
+        await onProjectAdded();
+      }
 
       setName("");
       setDesc("");
@@ -419,9 +498,10 @@ function AddProjectModal({ onClose }) {
       console.error(error);
 
       toast.error(
-        error.response?.data
-          ?.message ||
-        "Gagal menambahkan project"
+        error.response?.data?.message ||
+        (editingProject
+          ? "Gagal memperbarui project"
+          : "Gagal menambahkan project")
       );
     } finally {
 
@@ -437,7 +517,13 @@ function AddProjectModal({ onClose }) {
         {/* CLOSE */}
         <button className="close-btn" onClick={onClose}>✕</button>
 
-        <h2>Tambahkan Proyek Anda</h2>
+        <h2>
+          {
+            editingProject
+              ? "Edit Proyek Anda"
+              : "Tambahkan Proyek Anda"
+          }
+        </h2>
 
         <form onSubmit={handleSubmit}>
           

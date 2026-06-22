@@ -1,4 +1,5 @@
 import NavigationLayout from "../navigation/NavigationLayout";
+import { useNavigate } from "react-router-dom";
 
 import "./Dashboard.css";
 
@@ -18,6 +19,8 @@ import nodeIcon from "../assets/images/ikon_nodejs.png";
 import canvaIcon from "../assets/images/ikon_canva.png";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const projects = [p1, p2, p3];
   const certificates = [c1, c2];
   const skills = [
@@ -53,7 +56,10 @@ export default function Dashboard() {
 
         {/* STAT */}
         <div className="stats">
-          <div className="card">
+          <div
+            className="card"
+            onClick={() => navigate("/projects")}
+          >
             <div className="card-text">
               <p>Total Projects</p>
               <h2>{projects.length}</h2>
@@ -64,9 +70,12 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="card">
+          <div
+            className="card"
+            onClick={() => navigate("/certificates")}
+          >
             <div className="card-text">
-              <p>Total Certificate</p>
+              <p>Total Certificates</p>
               <h2>{certificates.length}</h2>
             </div>
 
@@ -75,9 +84,12 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="card">
+          <div
+            className="card"
+            onClick={() => navigate("/skills")}
+          >
             <div className="card-text">
-              <p>Total Skills</p>
+              <p>Total Skills and Tools</p>
               <h2>{skills.length + tools.length}</h2>
             </div>
 

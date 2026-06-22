@@ -159,6 +159,7 @@
   padding: 7px 16px;
   border-radius: 6px;
   margin-bottom: 30px;
+  border: none;
 }
 
 .p1-back-btn:hover {
@@ -209,6 +210,7 @@
   cursor: pointer;
   margin-bottom: 22px;
   transition: var(--transition-fast);
+  text-decoration: none;
 }
 
 .p1-source-btn:hover {
@@ -265,7 +267,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  padding-top: 88px;
+  padding-top: 20px;
 }
 
 .p1-image-wrapper {
@@ -314,7 +316,7 @@
 
 /* IKON KODE SVG - DI DALAM GAMBAR SESUAI FIGMA */
 
-.p1-image-icon {
+/* .p1-image-icon {
   position: absolute;
   left: 55% !important;
   right: auto !important;
@@ -347,6 +349,66 @@
   box-shadow: none !important;
   background: transparent !important;
   transform: none !important;
+} */
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+
+  cursor: pointer;
+
+  z-index: 10;
+}
+
+.slider-btn.prev {
+  left: 12px;
+}
+
+.slider-btn.next {
+  right: 12px;
+}
+
+.slider-btn:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.slider-dots {
+  position: absolute;
+
+  bottom: 18px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 8px;
+
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.5);
+
+  cursor: pointer;
+}
+
+.dot.active {
+  background: white;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -457,7 +519,7 @@
     transform: scale(1.12) !important;
   }
 
-  .p1-image-icon {
+  /* .p1-image-icon {
     left: 55% !important;
     right: auto !important;
     bottom: 16px;
@@ -474,7 +536,7 @@
     height: 22px !important;
     min-width: 22px !important;
     min-height: 22px !important;
-  }
+  } */
 }
 
 @media (max-width: 600px) {
@@ -556,7 +618,7 @@
     transform: scale(1.14) !important;
   }
 
-  .p1-image-icon {
+  /* .p1-image-icon {
     left: 55% !important;
     right: auto !important;
     bottom: 12px;
@@ -573,5 +635,5 @@
     height: 20px !important;
     min-width: 20px !important;
     min-height: 20px !important;
-  }
+  } */
 }

@@ -1,56 +1,97 @@
 import React, { useState, useEffect, } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavigationLayout from "../navigation/NavigationLayout";
 import AddProjectModal from "../components/AddProjectModal";
 import "./Projects.css";
 
-
+import EditIcon from "../assets/edit.svg?react";
+import DeleteIcon from "../assets/delete.svg?react";
 
 function Projects() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [editingProject, setEditingProject] = useState(null);
 
-  useEffect(() => {
+  const fetchProjects =
+    async () => {
+      
+      
 
-    const fetchProjects =
-      async () => {
+      try {
 
-        try {
+        const token =
+          localStorage.getItem("token");
 
-          const token =
-            localStorage.getItem("token");
-
-          const response =
-            await fetch(
-              "http://localhost:5000/projects",
-              {
-                headers: {
-                  Authorization:
-                    `Bearer ${token}`,
-                },
-              }
-            );
-
-          const data =
-            await response.json();
-
-          setProjects(data);
-
-        } catch (error) {
-
-          console.error(
-            "Gagal mengambil projects:",
-            error
+        const response =
+          await fetch(
+            "http://localhost:5000/projects",
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${token}`,
+              },
+            }
           );
 
-        } finally {
+        const data =
+          await response.json();
 
-          setLoading(false);
+        setProjects(data);
 
-        }
-      };
+      } catch (error) {
+
+        console.error(
+          "Gagal mengambil projects:",
+          error
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+  const confirmDelete =
+    async () => {
+
+      try {
+
+        const token =
+          localStorage.getItem("token");
+
+        await axios.delete(
+          `http://localhost:5000/projects/${selectedProject.id}`,
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+
+        await fetchProjects();
+
+        setShowDeleteModal(false);
+
+        setSelectedProject(null);
+
+      } catch (error) {
+
+        console.error(
+          "Gagal menghapus project:",
+          error
+        );
+
+      }
+    };
+
+  useEffect(() => {
 
     fetchProjects();
 
@@ -76,7 +117,13 @@ function Projects() {
 
           <button
             className="add-btn"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+
+              setEditingProject(null);
+
+              setShowModal(true);
+
+            }}
           >
             + Add Project
           </button>
@@ -85,7 +132,15 @@ function Projects() {
 
         {showModal && (
           <AddProjectModal
-            onClose={() => setShowModal(false)}
+            onClose={() => {
+
+              setShowModal(false);
+
+              setEditingProject(null);
+
+            }}
+            onProjectAdded={fetchProjects}
+            editingProject={editingProject}
           />
         )}
 
@@ -119,24 +174,59 @@ function Projects() {
 
                 <button
                   className="edit-btn"
-                  onClick={(e) => {
+                  onClick={async (e) => {
+
                     e.stopPropagation();
 
-                    console.log("edit");
+                    try {
+
+                      const token =
+                        localStorage.getItem("token");
+
+                      const response =
+                        await axios.get(
+                          `http://localhost:5000/projects/${project.id}`,
+                          {
+                            headers: {
+                              Authorization:
+                                `Bearer ${token}`,
+                            },
+                          }
+                        );
+
+                      setEditingProject(
+                        response.data
+                      );
+
+                      setShowModal(true);
+
+                    } catch (error) {
+
+                      console.error(
+                        "Gagal mengambil detail project",
+                        error
+                      );
+
+                    }
+
                   }}
                 >
-                  ✏️
+                  <EditIcon />
                 </button>
 
                 <button
                   className="delete-btn"
                   onClick={(e) => {
+
                     e.stopPropagation();
 
-                    console.log("delete");
+                    setSelectedProject(project);
+
+                    setShowDeleteModal(true);
+
                   }}
                 >
-                  🗑️
+                  <DeleteIcon />
                 </button>
 
               </div>
@@ -146,13 +236,71 @@ function Projects() {
 
           {projects.length === 0 && (
             <div className="empty-projects">
-              Anda belum memiliki project.
-              <br />
-              Klik "Add Project" untuk menambahkan project pertama.
+              <p>Anda belum memiliki project.</p>
+
+              <p>
+                Klik "Add Project" untuk menambahkan project pertama.
+              </p>
             </div>
           )}
 
-        </div>        
+        </div>
+
+        {showDeleteModal && (
+          <div className="delete-modal-overlay">
+
+            <div className="delete-modal-content">
+
+              <button
+                className="close-delete-modal"
+                onClick={() => {
+
+                  setShowDeleteModal(false);
+
+                  setSelectedProject(null);
+
+                }}
+              >
+                ✕
+              </button>
+
+              <h3>
+                Hapus Project
+              </h3>
+
+              <p>
+                Project tidak dapat dikembalikan. <br />
+                Anda yakin ingin menghapus project ini?
+              </p>
+
+              <div className="delete-modal-actions">
+
+                <button
+                  className="cancel-delete-btn"
+                  onClick={() => {
+
+                    setShowDeleteModal(false);
+
+                    setSelectedProject(null);
+
+                  }}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="confirm-delete-btn"
+                  onClick={confirmDelete}
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        )}
 
       </div>
 

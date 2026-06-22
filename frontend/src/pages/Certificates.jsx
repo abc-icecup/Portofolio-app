@@ -102,7 +102,7 @@ const Certificates = () => {
           
           <div className="certs-header">
             <div>
-              <h2>Certificates</h2>
+              <h2>Your Certificates</h2>
             </div>
             <button onClick={() => setShowAdd(true)} className="btn-add-cert">
               <span className="material-icons" style={{ fontSize: '16px' }}>add</span>

@@ -17,13 +17,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 
 .certs-header h2 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 28px;
   color: #333;
   margin: 0;
 }
@@ -66,12 +66,12 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   width: 310px;
-  height: 350px;
+  height: 314px;
 }
 
 .cert-item-box img {
   width: 310px;
-  height: 350px;
+  height: 314px;
   object-fit: contain;
   background: #c9c9c9;
   border-radius: 20px;
