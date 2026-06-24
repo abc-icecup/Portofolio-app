@@ -4,6 +4,7 @@ import './Certificates.css';
 
 // Integrasi Navigasi Kelompok
 import NavigationLayout from "../navigation/NavigationLayout";
+import DeleteIcon from "../assets/delete.svg?react";
 
 const Certificates = () => {
   const [certs, setCerts] = useState([]);
@@ -120,15 +121,24 @@ const Certificates = () => {
                 <div key={cert.id} className="cert-item-box">
                   {/* Gambar Utama */}
                   <img 
-                    src={`http://localhost:5000/${cert.image}`} 
-                    alt="Sertifikat" 
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/310x350?text=Sertifikat'; }}
+                    src={`http://localhost:5000/${cert.image}`}
+                    alt="Sertifikat"
+                    onClick={() => openView(cert)}
+                    className="cert-image-clickable"
+                    onError={(e) => {
+                      e.target.src =
+                        'https://via.placeholder.com/310x350?text=Sertifikat';
+                    }}
                   />
                   
                   {/* Container Tombol Aksi Melayang di Kanan Atas Gambar */}
                   <div className="cert-actions-top-right">
-                    <button onClick={() => openDelete(cert)} className="action-btn-box btn-del-box" title="Hapus">
-                      <span className="material-icons">delete</span>
+                    <button
+                      onClick={() => openDelete(cert)}
+                      className="action-btn-box btn-del-box"
+                      title="Hapus"
+                    >
+                      <DeleteIcon />
                     </button>
                     <button onClick={() => openView(cert)} className="action-btn-box btn-view-box" title="Perbesar">
                       <span className="material-icons">fullscreen</span>

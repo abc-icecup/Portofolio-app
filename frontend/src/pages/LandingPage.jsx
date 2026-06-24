@@ -50,7 +50,7 @@ function LandingPage() {
               <div className="home-portfolio-text">
                 <h3>Front End Developer</h3>
                 <h4>James A. Snow</h4>
-                <p>Contoh deskripsi singkat portofolio profesional Anda.</p>
+                <p>Frontend Developer yang berfokus pada pembuatan tampilan web yang responsif dan user-friendly menggunakan React dan Tailwind CSS, dengan perhatian pada pengalaman pengguna yang optimal.</p>
               </div>
 
               <img src={profile1} alt="Profile 1" />
@@ -60,7 +60,7 @@ function LandingPage() {
               <div className="home-portfolio-text">
                 <h3>Businessman & Content Creator</h3>
                 <h4>David T. Eis</h4>
-                <p>Contoh deskripsi singkat portofolio profesional Anda.</p>
+                <p>Seorang Businessman & Content Creator yang berfokus pada pengembangan layanan di bidang teknologi, serta memiliki kemampuan dalam menyampaikan ide dan nilai melalui konten digital yang kreatif dan relevan.</p>
               </div>
 
               <img src={profile2} alt="Profile 2" />

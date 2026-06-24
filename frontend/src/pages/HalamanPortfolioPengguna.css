@@ -14,7 +14,7 @@
   width: min(1440px, 100%);
   height: 70px;
   margin: 0 auto;
-  background: #4a7bbd !important;
+  background: #4a7bbd;
   color: var(--color-white);
   font-family: var(--font-body, "Inter", sans-serif);
 }
@@ -189,20 +189,21 @@
   background: #111111;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .pf-photo {
   width: 205px;
   height: 230px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center bottom;
   border-radius: 0;
   background: transparent;
   display: block;
-  transform: translateY(8px);
+  transform: none;
 }
 
 /* ================= SECTION TITLES ================= */
@@ -214,7 +215,7 @@
 .pf-contact h3 {
   margin: 0 0 18px;
   color: var(--color-black);
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: var(--font-body, "Playfair Display", serif);
   font-size: 24px;
   font-weight: 800;
   line-height: 1.2;
@@ -250,7 +251,12 @@
 .pf-skill-card img {
   width: 28px;
   height: 28px;
-  object-fit: contain;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  flex-shrink: 0;
 }
 
 .pf-skill-card span {
@@ -290,9 +296,13 @@
 .pf-tool-card img {
   width: 28px;
   height: 28px;
-  object-fit: contain;
-}
 
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  flex-shrink: 0;
+}
 .pf-tool-card span {
   color: var(--color-black);
   font-family: var(--font-body, "Inter", sans-serif);
@@ -315,88 +325,55 @@
   justify-content: flex-start;
 }
 
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card {
-  position: relative !important;
-  width: 327.17px !important;
-  height: 328px !important;
+.pf-project-card {
+  position: relative;
+  width: 327.17px;
+  height: 328px;
   border-radius: 15px;
-  overflow: hidden !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  isolation: isolate !important;
-  transition: none !important;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  isolation: isolate;
 }
 
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card:hover {
-  transform: none !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+.pf-project-card:hover {
+  transform: none;
 }
 
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card::before,
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card::after {
-  content: none !important;
-  display: none !important;
-  opacity: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+.pf-project-card::before,
+.pf-project-card::after {
+  content: none;
 }
 
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card > img {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  background: transparent !important;
-  border-radius: 10px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  transform: scale(1.08) !important;
-  transform-origin: center center !important;
+.pf-project-card > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  transform: scale(1.08);
 }
 
-.pf-page .pf-card .pf-projects .pf-project-list .pf-project-card .pf-project-overlay {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 2 !important;
-  display: flex !important;
-  align-items: flex-end !important;
-  overflow: hidden !important;
-  border-radius: 10px !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+.pf-project-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 10px;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 42%,
     rgba(0, 0, 0, 0.08) 68%,
     rgba(0, 0, 0, 0.34) 100%
-  ) !important;
+  );
 }
 
 .pf-page .pf-card .pf-projects .pf-project-list .pf-project-card .pf-project-overlay::before,
@@ -428,12 +405,6 @@
 .pf-project-text a {
   display: inline-flex;
   text-decoration: none;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
 }
 
 .pf-project-text button {
@@ -500,27 +471,23 @@
   justify-content: flex-start;
 }
 
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card {
-  width: 327.17px !important; 
-  height: 328px !important; 
-  background: #c9c9c9 !important; 
-  border-radius: 15px; 
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important; 
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+.pf-certificate-card {
+  width: 327.17px;
+  height: 328px;
+  background: #c9c9c9;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:hover {
-  transform: none !important;
-  background: #c9c9c9 !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+.pf-certificate-card:hover {
+  transform: none;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card::before,
@@ -529,21 +496,11 @@
   display: none !important;
 }
 
-.pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card img {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important; 
-  object-position: center !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.pf-certificate-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .pf-page .pf-card .pf-certificates .pf-certificate-list .pf-certificate-card:first-child img,
@@ -552,24 +509,12 @@
   max-height: 100% !important;
 }
 
-/* ================= POPUP MODAL ================= */
-
-.pf-page img[alt="Certificate 1"],
-.pf-page img[alt="Certificate 2"],
-.CertificatePortrait img,
-.CertificateLandscape img,
-[class*="modal"] img, 
-[class*="popup"] img {
-  max-width: 75vw !important;  
-  max-height: 75vh !important; 
-  object-fit: contain !important; 
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35); 
-  border-radius: 12px !important; 
-}
-
 /* ================= CONTACT ================= */
 
 .pf-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin-bottom: 0;
 }
 
@@ -605,6 +550,50 @@
   text-decoration: none;
 }
 
+.pf-image-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.pf-image-modal-container {
+  position: relative;
+}
+
+.pf-image-modal {
+  max-width: 80vw;
+  max-height: 80vh;
+
+  object-fit: contain;
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+}
+
+.pf-image-close {
+  position: absolute;
+
+  top: -50px;
+  right: 0;
+
+  background: none;
+  border: none;
+
+  color: white;
+
+  font-size: 40px;
+
+  cursor: pointer;
+}
+
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 1350px) {
@@ -628,6 +617,7 @@
   .pf-photo-wrapper {
     width: 220px;
     height: 220px;
+    cursor: pointer;
   }
 
   .pf-photo {
@@ -640,7 +630,7 @@
     gap: 28px;
   }
 
-  .pf-page .pf-card .pf-projects .pf-project-list .pf-project-card {
+  .pf-project-card {
     width: 327.17px !important;
     height: 328px !important;
   }
@@ -748,6 +738,7 @@
   .pf-photo-wrapper {
     width: 200px;
     height: 200px;
+    cursor: pointer;
   }
 
   .pf-photo {
@@ -853,6 +844,7 @@
   .pf-photo-wrapper {
     width: 170px;
     height: 170px;
+    cursor: pointer;
   }
 
   .pf-photo {
@@ -865,7 +857,7 @@
     width: 100%;
   }
 
-  .pf-page .pf-card .pf-projects .pf-project-list .pf-project-card {
+  .pf-project-card {
     width: 100% !important;
     max-width: 327.17px !important;
     height: 328px !important;

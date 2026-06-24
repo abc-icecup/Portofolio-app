@@ -41,6 +41,17 @@ function Projects() {
         const data =
           await response.json();
 
+        if (!response.ok) {
+
+          console.error(
+            data.message
+          );
+
+          setProjects([]);
+
+          return;
+        }
+
         setProjects(data);
 
       } catch (error) {

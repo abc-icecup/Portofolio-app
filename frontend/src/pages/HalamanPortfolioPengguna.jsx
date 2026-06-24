@@ -1,51 +1,159 @@
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
+import NavigationLayout from "../navigation/NavigationLayout";
+import { useEffect, useState } from "react";
+
 import "./HalamanPortfolioPengguna.css";
-
-import CertificatePortrait from "../components/CertificatePortrait";
-import CertificateLandscape from "../components/CertificateLandscape";
-
-import logo from "../assets/images/logo_my_porto.svg";
-import menuIcon from "../assets/images/ikon_menu.svg";
-import documentIcon from "../assets/images/ikon_dokumen.svg";
 import linkIcon from "../assets/images/ikon_link.svg";
-import profile1 from "../assets/images/profile1.svg";
-
-import project1 from "../assets/images/project1.png";
-import project2 from "../assets/images/project2.png";
-import project3 from "../assets/images/project3.png";
-
-import serti1 from "../assets/cert1.jpg";
-import serti2 from "../assets/cert2.jpg";
-
-import figmaIcon from "../assets/images/ikon_figma.png";
-import reactIcon from "../assets/images/ikon_react.png";
-import nodeIcon from "../assets/images/ikon_nodejs.png";
-import canvaIcon from "../assets/images/ikon_canva.png";
 
 function HalamanPortfolioPengguna() {
-  const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [skills, setSkills] = useState([]);
+  const [tools, setTools] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [certificates, setCertificates] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+    
+  useEffect(() => {
+
+    const fetchPortfolio = async () => {
+
+      try {
+
+        const token =
+          localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const [
+          profileRes,
+          skillsRes,
+          projectsRes,
+          certificatesRes,
+        ] = await Promise.all([
+
+          fetch(
+            "http://localhost:5000/profile",
+            { headers }
+          ),
+
+          fetch(
+            "http://localhost:5000/skills",
+            { headers }
+          ),
+
+          fetch(
+            "http://localhost:5000/projects",
+            { headers }
+          ),
+
+          fetch(
+            "http://localhost:5000/certificates",
+            { headers }
+          ),
+
+        ]);
+
+        const profileData =
+          await profileRes.json();
+
+        const skillsData =
+          await skillsRes.json();
+
+        const projectsData =
+          await projectsRes.json();
+
+        const certificatesData =
+          await certificatesRes.json();
+
+        console.log(
+          "PROFILE:",
+          profileData
+        );
+
+        console.log(
+          "SKILLS:",
+          skillsData
+        );
+
+        console.log(
+          "PROJECTS:",
+          projectsData
+        );
+
+        console.log(
+          "CERTIFICATES:",
+          certificatesData
+        );
+
+        setProfile(profileData);
+
+        setSkills(
+          skillsData.filter(
+            item =>
+              item.category === "skill"
+          )
+        );
+
+        setTools(
+          skillsData.filter(
+            item =>
+              item.category === "tool"
+          )
+        );
+
+        setProjects(projectsData);
+
+        setCertificates(
+          certificatesData
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+    fetchPortfolio();
+
+  }, []);  
+
+  const openImageModal = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setShowImageModal(true);
+  };
+
+  if (loading) {
+
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+
+  }
 
   return (
-    <div className="pf-page">
-      <header className="pf-navbar">
-        <div className="pf-navbar-container">
-          <div className="pf-navbar-left">
-            <button className="pf-menu-button" type="button" aria-label="Menu">
-              <img src={menuIcon} alt="Menu" />
-            </button>
 
-            <div className="pf-logo">
-              <img src={logo} alt="Logo MyPorto" />
-              <span>MyPorto</span>
-            </div>
-          </div>
+    <NavigationLayout
+      defaultSidebarOpen={false}
+      isGuest={
+        !localStorage.getItem(
+          "token"
+        )
+      }
+    >
 
-          <div className="pf-icon-circle">
-            <img src={documentIcon} alt="Icon Dokumen" />
-          </div>
-        </div>
-      </header>
+      <div className="pf-page">
 
       <main className="pf-main">
         <section className="pf-card">
@@ -54,46 +162,63 @@ function HalamanPortfolioPengguna() {
           <section className="pf-intro">
             <div className="pf-intro-text">
               <h4>Hello, I’m</h4>
-              <h1>Jamal</h1>
+
+              <h1>
+                {profile?.username}
+              </h1>
+
               <p>
-                Seorang engineer yang berfokus pada pengembangan aplikasi web
-                modern dengan pengalaman dalam membangun antarmuka interaktif,
-                menggunakan React dan sistem backend pendukung. Memiliki
-                ketertarikan kuat pada desain yang bersih, performa aplikasi,
-                serta pengalaman pengguna yang baik untuk kebutuhan proyek
-                profesional.
+                {profile?.Profile?.bio}
               </p>
             </div>
 
-            <div className="pf-photo-wrapper">
-              <img src={profile1} alt="Profile Jamal" className="pf-photo" />
+            <div
+              className="pf-photo-wrapper"
+              onClick={() =>
+                openImageModal(
+                  `http://localhost:5000/${profile.Profile.profile_image.replaceAll("\\", "/")}`
+                )
+              }
+            >
+
+              <img
+                src={
+                  profile?.Profile?.profile_image
+                    ? `http://localhost:5000/${profile.Profile.profile_image.replaceAll("\\", "/")}`
+                    : ""
+                }
+                alt="Profile"
+                className="pf-photo"
+              />
+
             </div>
           </section>
 
-          {/* ================= SECTION SKILLS ================= */}
           <section className="pf-skills">
             <h3>Skills</h3>
 
             <div className="pf-skill-list">
-              <div className="pf-skill-card">
-                <img src={figmaIcon} alt="Figma" />
-                <span>Figma</span>
-              </div>
 
-              <div className="pf-skill-card">
-                <img src={reactIcon} alt="React" />
-                <span>React</span>
-              </div>
+              {skills.map((skill) => (
 
-              <div className="pf-skill-card">
-                <img src={nodeIcon} alt="Node.js" />
-                <span>Node.Js</span>
-              </div>
+                <div
+                  className="pf-skill-card"
+                  key={skill.id}
+                >
 
-              <div className="pf-skill-card">
-                <img src={canvaIcon} alt="Canva" />
-                <span>Canva</span>
-              </div>
+                  <img
+                    src={`http://localhost:5000/${skill.icon.replaceAll("\\", "/")}`}
+                    alt={skill.name}
+                  />
+
+                  <span>
+                    {skill.name}
+                  </span>
+
+                </div>
+
+              ))}
+
             </div>
           </section>
 
@@ -102,115 +227,165 @@ function HalamanPortfolioPengguna() {
             <h3>Tools</h3>
 
             <div className="pf-tool-list">
-              {/* Hanya menampilkan 1 contoh tool saja yaitu Canva */}
-              <div className="pf-tool-card">
-                <img src={canvaIcon} alt="Canva" />
-                <span>Canva</span>
-              </div>
+
+              {tools.map((tool) => (
+
+                <div
+                  className="pf-tool-card"
+                  key={tool.id}
+                >
+
+                  <img
+                    src={`http://localhost:5000/${tool.icon.replaceAll("\\", "/")}`}
+                    alt={tool.name}
+                  />
+
+                  <span>
+                    {tool.name}
+                  </span>
+
+                </div>
+
+              ))}
+
             </div>
           </section>
 
-          {/* ================= SECTION PROJECTS ================= */}
           <section className="pf-projects">
             <h3>Projects</h3>
 
             <div className="pf-project-list">
-              <div className="pf-project-card">
-                <img src={project1} alt="Website E-commerce" />
 
-                <div className="pf-project-overlay">
-                  <div className="pf-project-text">
-                    <h4>Website E-Commerce Fashion (Frontend)</h4>
+              {projects.map((project) => (
 
-                    <Link to="/project-detail">
-                      <button type="button">Detail</button>
-                    </Link>
+                <div
+                  className="pf-project-card"
+                  key={project.id}
+                >
+
+                  <img
+                    src={project.thumbnail}
+                    alt={project.name}
+                  />
+
+                  <div className="pf-project-overlay">
+
+                    <div className="pf-project-text">
+
+                      <h4>
+                        {project.name}
+                      </h4>
+
+                      <Link
+                        to={`/projects/${project.id}`}
+                      >
+
+                        <button type="button">
+                          Detail
+                        </button>
+
+                      </Link>
+
+                    </div>
+
                   </div>
+
                 </div>
-              </div>
 
-              <div className="pf-project-card">
-                <img src={project2} alt="UI/UX Design Aplikasi Mobile" />
+              ))}
 
-                <div className="pf-project-overlay">
-                  <div className="pf-project-text">
-                    <h4>UI/UX Design Aplikasi Mobile Travel Online</h4>
-
-                    <Link to="/project-detail">
-                      <button type="button">Detail</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pf-project-card">
-                <img src={project3} alt="Poster Promosi Event" />
-
-                <div className="pf-project-overlay">
-                  <div className="pf-project-text">
-                    <h4>Poster Promosi Event Seminar Arkeologi</h4>
-
-                    <Link to="/project-detail">
-                      <button type="button">Detail</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
 
-          {/* ================= SECTION CERTIFICATES ================= */}
           <section className="pf-certificates">
             <h3>Certificates</h3>
 
             <div className="pf-certificate-list">
-              <button
-                type="button"
-                className="pf-certificate-card"
-                onClick={() => setSelectedCertificate("portrait")}
-              >
-                <img src={serti1} alt="Certificate 1" />
-              </button>
 
-              <button
-                type="button"
-                className="pf-certificate-card"
-                onClick={() => setSelectedCertificate("landscape")}
-              >
-                <img src={serti2} alt="Certificate 2" />
-              </button>
+              {certificates.map(
+                (certificate) => (
+
+                  <div
+                    className="pf-certificate-card"
+                    key={certificate.id}
+                  >
+
+                    <img
+                      src={`http://localhost:5000/${certificate.image.replaceAll("\\", "/")}`}
+                      alt="certificate"
+                      onClick={() =>
+                        openImageModal(
+                          `http://localhost:5000/${certificate.image.replaceAll("\\", "/")}`
+                        )
+                      }
+                    />
+
+                  </div>
+
+                )
+              )}
+
             </div>
           </section>
 
-          {/* ================= SECTION CONTACT ================= */}
           <section className="pf-contact">
             <h3>Contact</h3>
 
-            <div className="pf-contact-item">
-              <span className="pf-contact-icon">
-                <img src={linkIcon} alt="Link Contact" />
-              </span>
+            {profile?.Profile?.SocialLinks?.map((link) => (
 
-              <a href="mailto:jamal@gmail.com">jamal@gmail.com</a>
-            </div>
+              <div
+                className="pf-contact-item"
+                key={link.id}
+              >
+
+                <span className="pf-contact-icon">
+                  <img
+                    src={linkIcon}
+                    alt="Link Contact"
+                  />
+                </span>
+
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.url}
+                </a>
+
+              </div>
+
+            ))}
           </section>
+
+          {showImageModal && (
+            <div className="pf-image-modal-overlay">
+
+              <div className="pf-image-modal-container">
+
+                <button
+                  className="pf-image-close"
+                  onClick={() => setShowImageModal(false)}
+                >
+                  ✕
+                </button>
+
+                <img
+                  src={selectedImage}
+                  alt="Preview"
+                  className="pf-image-modal"
+                />
+
+              </div>
+
+            </div>
+          )}
+
         </section>
       </main>
+      </div>
 
-      {selectedCertificate === "portrait" && (
-        <CertificatePortrait
-          image={serti1}
-          onClose={() => setSelectedCertificate(null)}
-        />
-      )}
-
-      {selectedCertificate === "landscape" && (
-        <CertificateLandscape
-          image={serti2}
-          onClose={() => setSelectedCertificate(null)}
-        />
-      )}
-    </div>
+    </NavigationLayout>
   );
 }
 

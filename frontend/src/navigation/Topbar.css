@@ -49,6 +49,14 @@
   cursor: pointer;
 }
 
+.icon-btn.active {
+  background-color: #dcecff;
+}
+
+.icon-btn.active:hover {
+  background-color: #dcecff;
+}
+
 .document-icon {
   width: 24px;
   height: 24px;

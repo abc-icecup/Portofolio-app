@@ -20,7 +20,7 @@ import SignUp from "./pages/SignUp";
 
 // ===== PROJECT DETAIL =====
 import ProjectDetails from "./pages/ProjectDetails";
-import ProjectHalamanTamu from "./pages/ProjectHalamanTamu";
+// import ProjectHalamanTamu from "./pages/ProjectHalamanTamu";
 
 function App() {
   return (
@@ -55,7 +55,7 @@ function App() {
         /> */}
 
         {/* ===== PROJECT TAMU ===== */}
-        <Route
+        {/* <Route
           path="/project-halaman-tamu-1"
           element={<ProjectHalamanTamu />}
         />
@@ -66,7 +66,7 @@ function App() {
         <Route
           path="/project-halaman-tamu-3"
           element={<ProjectHalamanTamu />}
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );

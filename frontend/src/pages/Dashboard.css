@@ -165,11 +165,14 @@
 }
 
 .skill-chip img {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-  object-position: left;
-  margin-left: -5px;
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  flex-shrink: 0;
 }
 
 .skill-chip span {
@@ -196,4 +199,33 @@
 
 .cert img:hover {
   transform: scale(1.05);
+}
+
+.see-all-btn {
+
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  padding: 8px 16px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #b7a7a7;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.see-all-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }

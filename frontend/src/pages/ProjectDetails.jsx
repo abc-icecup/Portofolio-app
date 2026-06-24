@@ -9,9 +9,8 @@ import {
 } from "react";
 
 import "./ProjectDetails.css";
+import NavigationLayout from "../navigation/NavigationLayout";
 
-import logo from "../assets/images/logo_my_porto.svg";
-import icon from "../assets/images/ikon_dokumen.svg";
 import iconSource from "../assets/images/ikon_source.png";
 import techIcon from "../assets/images/ikon_underline.png";
 import codeIcon from "../assets/images/ikon_code.svg";
@@ -114,27 +113,16 @@ function ProjectDetails() {
   }
 
   return (
-    <div className="p1-page">
-      <header className="p1-navbar">
-        <div className="p1-navbar-container">
-          <div className="p1-navbar-left">
-            <button className="p1-menu-button" type="button" aria-label="Menu">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+    <NavigationLayout
+      defaultSidebarOpen={false}
+      isGuest={
+        !localStorage.getItem(
+          "token"
+        )
+      }
+    >
 
-            <div className="p1-logo">
-              <img src={logo} alt="Logo MyPorto" />
-              <span>MyPorto</span>
-            </div>
-          </div>
-
-          <div className="p1-icon-circle">
-            <img src={icon} alt="Icon Portfolio" />
-          </div>
-        </div>
-      </header>
+      <div className="p1-page">
 
       <main className="p1-main">
         <section className="p1-layout">
@@ -242,7 +230,9 @@ function ProjectDetails() {
           </div>
         </section>
       </main>
-    </div>
+      </div>
+
+    </NavigationLayout>
   );
 }
 

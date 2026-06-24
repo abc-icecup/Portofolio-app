@@ -5,23 +5,41 @@ import Sidebar from "../navigation/Sidebar";
 
 import "./NavigationLayout.css";
 
-export default function NavigationLayout({ children }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+export default function NavigationLayout({
+  children,
+  defaultSidebarOpen = true,
+  isGuest = false,
+}) {
+
+  const [isSidebarOpen, setIsSidebarOpen] =
+    useState(defaultSidebarOpen);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen(
+      prev => !prev
+    );
   };
 
   return (
     <div className="layout-container">
 
-      <Topbar toggleSidebar={toggleSidebar} />
+      <Topbar
+        toggleSidebar={toggleSidebar}
+      />
 
-      <Sidebar isOpen={isSidebarOpen} />
+      {!isGuest && (
+
+        <Sidebar
+          isOpen={isSidebarOpen}
+        />
+
+      )}
 
       <main
         className={`layout-content ${
-          isSidebarOpen ? "sidebar-open" : "sidebar-closed"
+          isSidebarOpen
+            ? "sidebar-open"
+            : "sidebar-closed"
         }`}
       >
         {children}

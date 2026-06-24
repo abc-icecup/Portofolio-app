@@ -90,9 +90,9 @@
 
 /* GAYA TOMBOL KOTAK KECIL BARU */
 .action-btn-box {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
   border: none;
   display: flex;
   align-items: center;
@@ -212,6 +212,15 @@
   font-size: 12px;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.cert-image-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cert-image-clickable:hover {
+  transform: scale(1.02);
 }
 
 .btn-cancel { background: #C4B5B5; color: white; }

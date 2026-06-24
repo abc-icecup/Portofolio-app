@@ -426,6 +426,15 @@ function AddProjectModal({ onClose, onProjectAdded, editingProject, }) {
         )
       );
 
+      const existingImages = images
+        .filter((img) => img.existing)
+        .map((img) => img.preview);
+
+      formData.append(
+        "existingImages",
+        JSON.stringify(existingImages)
+      );      
+
       images.forEach((img) => {
 
         if (!img.existing) {
@@ -593,6 +602,7 @@ function AddProjectModal({ onClose, onProjectAdded, editingProject, }) {
           <input
             type="text"
             value={name}
+            placeholder="Masukkan nama proyek Anda"
             onChange={(e) => setName(e.target.value)}
           />
 
@@ -600,6 +610,7 @@ function AddProjectModal({ onClose, onProjectAdded, editingProject, }) {
           <label>Deskripsi</label>
           <textarea
             value={desc}
+            placeholder="Deskripsikan tentang proyek Anda"
             onChange={(e) => setDesc(e.target.value)}
           />
 
@@ -694,7 +705,7 @@ function AddProjectModal({ onClose, onProjectAdded, editingProject, }) {
                 <input
                   type="text"
                   value={link}
-                  placeholder="https://"
+                  placeholder="Masukkan Link/Tautan dokumentasi proyek Anda"
                   onChange={(e) =>
                     handleLinkChange(
                       index,

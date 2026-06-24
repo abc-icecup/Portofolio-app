@@ -449,6 +449,7 @@ export const updateProject = async (
       description,
       links,
       skills,
+      existingImages,
     } = req.body;
 
     // =====================
@@ -538,24 +539,33 @@ export const updateProject = async (
     // UPDATE GAMBAR
     // =====================
 
-    if (
-      req.files &&
-      req.files.length > 0
-    ) {
+    const keepImages =
+      existingImages
+        ? JSON.parse(existingImages)
+        : [];
 
-      const oldImages =
-        await ProjectImage.findAll({
+    const oldImages =
+      await ProjectImage.findAll({
 
-          where: {
-            project_id:
-              project.id,
-          },
+        where: {
+          project_id: project.id,
+        },
 
-        });
+      });
 
-      // hapus file lama
+    for (const image of oldImages) {
 
-      for (const image of oldImages) {
+      const imageUrl =
+        `${req.protocol}://${req.get(
+          "host"
+        )}/uploads/projects/${image.image}`;
+
+      const shouldKeep =
+        keepImages.includes(
+          imageUrl
+        );
+
+      if (!shouldKeep) {
 
         const imagePath =
           path.join(
@@ -565,38 +575,37 @@ export const updateProject = async (
           );
 
         if (
-          fs.existsSync(
-            imagePath
-          )
+          fs.existsSync(imagePath)
         ) {
 
-          fs.unlinkSync(
-            imagePath
-          );
+          fs.unlinkSync(imagePath);
 
         }
 
+        await image.destroy({
+          transaction,
+        });
+
       }
 
-      await ProjectImage.destroy({
+    }
 
-        where: {
-          project_id:
-            project.id,
-        },
-
-        transaction,
-
-      });
+    if (
+      req.files &&
+      req.files.length > 0
+    ) {
 
       await ProjectImage.bulkCreate(
 
         req.files.map(
           (file) => ({
+
             project_id:
               project.id,
+
             image:
               file.filename,
+
           })
         ),
 

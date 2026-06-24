@@ -26,7 +26,10 @@ export default function Sidebar({ isOpen }) {
         <li>
           <NavLink
             to="/projects"
-            className={({ isActive }) => (isActive ? "active" : "")}
+            end
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
           >
             <ProjectsIcon className="icon" />
             <span>Projects</span>
