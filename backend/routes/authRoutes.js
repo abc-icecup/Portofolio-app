@@ -1,4 +1,5 @@
 import express from "express";
+import { body } from "express-validator"; 
 
 import {
   register,
@@ -7,7 +8,21 @@ import {
 
 const router = express.Router();
 
-router.post("/register", register);
+router.post(
+  "/register", 
+  [
+    body("username")
+      .trim()
+      .notEmpty().withMessage("Username wajib diisi")
+      .escape(), 
+    body("email")
+      .isEmail().withMessage("Format email tidak valid"), 
+    body("password")
+      .isLength({ min: 6 }).withMessage("Password minimal harus 6 karakter")
+  ],
+  register
+);
+
 router.post("/login", login);
 
 export default router;
