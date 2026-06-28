@@ -32,3 +32,4 @@ jobs:
         DB_DIALECT: sqlite
         DB_STORAGE: :memory:
       working-directory: ./backend
+      
