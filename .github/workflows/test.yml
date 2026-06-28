@@ -10,17 +10,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+    # 🛡️ Menyediakan Database MySQL Sementara di Server Cloud GitHub Actions
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: myporto_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: actions/checkout@v4
     
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 18.x
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18.x
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
 
@@ -32,4 +39,11 @@ jobs:
       run: npm test
       env:
         NODE_ENV: test
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSWORD: root
+        DB_NAME: myporto_db
+        DB_DIALECT: mysql
+        DB_PORT: 3306
+        JWT_SECRET: testsecret
       working-directory: ./backend
