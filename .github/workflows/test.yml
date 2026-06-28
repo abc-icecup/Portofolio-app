@@ -24,14 +24,11 @@ jobs:
       run: npm ci
       working-directory: ./backend
 
-    - name: Run Testing (Jest with Mocked Env)
-      run: npm test -- --passWithNoTests
+    - name: Run Testing (Jest with In-Memory Database)
+      run: npm test
       env:
         NODE_ENV: test
         JWT_SECRET: testsecret
-        DB_HOST: 127.0.0.1
-        DB_USER: root
-        DB_PASSWORD: ""
-        DB_NAME: myporto_db
-        DB_DIALECT: mysql
+        DB_DIALECT: sqlite
+        DB_STORAGE: :memory:
       working-directory: ./backend
