@@ -12,12 +12,9 @@ if (process.env.NODE_ENV === 'test' || process.env.DB_DIALECT === 'sqlite') {
     storage: ':memory:',
     logging: false, // agar log terminal GitHub bersih
     define: {
-      timestamps: true // menjamin kolom createdAt dan updatedAt otomatis terbuat di SQLite
+      timestamps: true // menjamin kolom createdAt dan updatedAt otomatis terbuat
     }
   });
-
-  // 🔥 Tambahan Kunci: Paksa sinkronisasi tabel database memori secara instan sebelum tes berjalan
-  await sequelize.sync({ force: true }).catch(() => {});
 } else {
   // 💻 Tetap gunakan MySQL XAMPP asli kamu saat dijalankan di laptop lokal (Development)
   sequelize = new Sequelize(
