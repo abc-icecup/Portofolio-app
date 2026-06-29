@@ -19,7 +19,6 @@ import projectRoutes from "./routes/projectRoutes.js";
 
 const app = express();
 
-// 🚀 SOLUSI ABSOLUT: Jalankan sinkronisasi tabel secara sinkron sebelum rute apa pun membaca request
 if (process.env.NODE_ENV === 'test') {
   sequelize.sync({ force: false }).catch(() => {});
 }
@@ -43,44 +42,12 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(cors());
 app.use(express.json());
 
-// 🌐 Definisi Rute Asli Aplikasi Kamu
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/profile", profileRoutes);
 app.use("/certificates", certificatesRoutes);
 app.use("/skills", skillsRoutes);
 app.use("/projects", projectRoutes);
-
-// 🚀 TRIK BOM KUNCI: Simulasi paksa jalannya kode internal controller
-if (process.env.NODE_ENV === 'test') {
-  app.use(async (req, res, next) => {
-    try {
-      const mockReq = { body: {}, params: {}, query: {}, headers: {} };
-      const mockRes = { status: () => mockRes, json: () => mockRes, send: () => mockRes };
-      const dummyNext = () => {};
-      
-      const { register, login } = await import("./controllers/authController.js");
-      const { getSkills, addSkill } = await import("./controllers/skillsController.js");
-      const { getCertificates } = await import("./controllers/certificatesController.js");
-      const { getProfile } = await import("./controllers/profileController.js");
-
-      await Promise.all([
-        register(mockReq, mockRes, dummyNext).catch(() => {}),
-        login(mockReq, mockRes, dummyNext).catch(() => {}),
-        getSkills(mockReq, mockRes, dummyNext).catch(() => {}),
-        addSkill(mockReq, mockRes, dummyNext).catch(() => {}),
-        getCertificates(mockReq, mockRes, dummyNext).catch(() => {}),
-        getProfile(mockReq, mockRes, dummyNext).catch(() => {})
-      ]);
-    } catch (e) {}
-
-    if (!res.headersSent) {
-      if (req.originalUrl.startsWith('/skills')) return res.status(200).json([]);
-      if (req.originalUrl.startsWith('/auth')) return res.status(200).json({ token: "mock-token", success: true });
-      return res.status(200).json({ success: true });
-    }
-  });
-}
 
 app.use("/uploads", express.static("uploads"));
 
