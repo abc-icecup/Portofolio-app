@@ -10,6 +10,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: myporto_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=3
+          --character-set-server=utf8mb4
+          --collation-server=utf8mb4_unicode_ci
+
     steps:
     - uses: actions/checkout@v4
     
@@ -24,10 +40,15 @@ jobs:
       run: npm ci
       working-directory: ./backend
 
-    # 🛡️ Meloloskan pipeline dengan mengisolasi pengujian yang tidak bergantung pada MySQL port lokal
-    - name: Run CI Pipeline Test Verification
-      run: npx jest tests/certificates.test.js tests/profile.test.js --coverage --passWithNoTests
+    - name: Run tests
+      run: npx jest --runInBand --detectOpenHandles --forceExit --coverage --passWithNoTests
       env:
         NODE_ENV: test
         JWT_SECRET: testsecret
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSWORD: ""
+        DB_NAME: myporto_db
+        DB_DIALECT: mysql
+        DB_PORT: 3306
       working-directory: ./backend
