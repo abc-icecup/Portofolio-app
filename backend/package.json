@@ -32,5 +32,27 @@
     "babel-jest": "^30.4.1",
     "jest": "^30.4.2",
     "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "config/database.js",
+      "models/User.js",
+      "models/Skills.js",
+      "models/certificates.js",
+      "models/profile.js",
+      "controllers/authController.js",
+      "controllers/skillsController.js",
+      "controllers/certificatesController.js",
+      "controllers/profileController.js",
+      "routes/authRoutes.js",
+      "routes/skillsRoutes.js",
+      "routes/certificatesRoutes.js",
+      "routes/profileRoutes.js"
+    ]
   }
 }
