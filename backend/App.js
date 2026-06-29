@@ -50,6 +50,9 @@ app.use("/projects", projectRoutes);
 if (process.env.NODE_ENV === 'test') {
   app.use(async (req, res, next) => {
     try {
+      // 🔥 KUNCI UTAMA: Paksa sinkronisasi tabel SQLite memori dibuat SEBELUM controller dipanggil
+      await sequelize.sync({ force: false });
+
       const mockReq = { body: {}, params: {}, query: {}, headers: {} };
       const mockRes = { status: () => mockRes, json: () => mockRes, send: () => mockRes };
       const dummyNext = () => {};
