@@ -26,7 +26,7 @@ jobs:
 
     # 🛡️ Meloloskan pipeline dengan mengisolasi pengujian yang tidak bergantung pada MySQL port lokal
     - name: Run CI Pipeline Test Verification
-      run: npx jest tests/certificates.test.js tests/profile.test.js --passWithNoTests
+      run: npx jest tests/certificates.test.js tests/profile.test.js --coverage --passWithNoTests
       env:
         NODE_ENV: test
         JWT_SECRET: testsecret
