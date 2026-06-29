@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'test' || process.env.DB_DIALECT === 'sqlite') {
     storage: ':memory:',
     logging: false, // agar log terminal GitHub bersih
     define: {
-      timestamps: true // menjamin kolom createdAt dan updatedAt otomatis terbuat
+      timestamps: true // menjamin kolom otomatis terbuat dengan aman
     }
   });
 } else {
