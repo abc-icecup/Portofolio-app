@@ -39,7 +39,7 @@ jobs:
       run: npm ci
       working-directory: ./backend
 
-    - name: Run tests (Murni & Jujur)
+    - name: Run tests 
       run: npx jest --runInBand --detectOpenHandles --forceExit --coverage --passWithNoTests || true
       env:
         NODE_ENV: test
