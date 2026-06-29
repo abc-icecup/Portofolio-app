@@ -24,7 +24,6 @@ jobs:
       run: npm ci
       working-directory: ./backend
 
-     Tarik coverage 4 fitur utama kelompok Anda
     - name: Run tests
       run: npx jest --runInBand --detectOpenHandles --forceExit --coverage --passWithNoTests || true
       env:
