@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Use Node.js 18.x
       uses: actions/setup-node@v4
       with:
@@ -24,12 +24,12 @@ jobs:
       run: npm ci
       working-directory: ./backend
 
-    # 📊 Menjalankan 4 fitur dengan SQLite memori agar bebas dari eror cesu8 & ECONNREFUSED
+     Tarik coverage 4 fitur utama kelompok Anda
     - name: Run tests
       run: npx jest --runInBand --detectOpenHandles --forceExit --coverage --passWithNoTests || true
       env:
         NODE_ENV: test
         JWT_SECRET: testsecret
         DB_DIALECT: sqlite
-        DB_STORAGE: :memory:
+        DB_STORAGE: ":memory:"
       working-directory: ./backend
